@@ -29,15 +29,16 @@ function crearCalendario() {
         }
     }
 }
-numerarCalendario("Martes", "31");
+numerarCalendario("Domingo", "30");
 
 function numerarCalendario(diaDeSemanaInicial, numeroDeDiasDelMes) {
-    NUMERO_DE_CUADROS = 35
-    DIAS_DE_LA_SEMANA = 7
+    let NUMERO_DE_CUADROS = 35
+    let acumulador = 0
     obtenerCuadros = document.querySelectorAll(".cuadro")
     for (let i = 0; i < NUMERO_DE_CUADROS; i++)
         if (obtenerCuadros[i].classList.contains(`cuadro-${diaDeSemanaInicial}`) === true) {
-            for (let j = 0; j < 33; j++) {
+            let iterador = NUMERO_DE_CUADROS - acumulador
+            for (let j = 0; j < iterador; j++) {
                 if (j < numeroDeDiasDelMes) {
                     obtenerCuadros[i].textContent = `${j + 1}.`
                     obtenerCuadros[i].dataset.dia = `${j + 1}`
@@ -49,6 +50,7 @@ function numerarCalendario(diaDeSemanaInicial, numeroDeDiasDelMes) {
                 }
             } return
         } else {
+            acumulador++
             obtenerCuadros[i].classList.remove("cuadro")
             obtenerCuadros[i].classList.add("cuadro-deshabilitado")
         }
@@ -66,6 +68,7 @@ function colocarIconoCrearEevento() {
         crearButton.classList = "agregar-evento rounded float-right"
         crearButton.dataset.toggle = "modal"
         crearButton.dataset.target = "#modal"
+        crearButton.dataset.dia = `${i + 1}`
         // crearDiv.appendChild(crearIMG)
         dias[i].appendChild(crearButton)
     }
@@ -76,11 +79,10 @@ function colocarIconoCrearEevento() {
 
 function modalCrearEvento() {
     header = document.querySelector(".modal-title")
-    body = document.querySelector(".modal-body")
-    footer = document.querySelector(".modal-footer")
-
-    body.innerHTML = ""
     header.textContent = "Crear evento"
+
+    body = document.querySelector(".modal-body")
+    body.innerHTML = ""
 
     contenedorTitulo = document.createElement("div")
     labelTitulo = document.createElement("label")
@@ -124,15 +126,23 @@ function modalCrearEvento() {
     body.appendChild(contenedorDescripcion)
     body.appendChild(contenedorComienza)
     body.appendChild(contenedorTermina)
+
+
+    footer = document.querySelector(".modal-footer")
+    footer.innerHTML = ""
+    crearBotonEvento("Cancelar", "secondary")
+    crearBotonEvento("Crear", "primary")
+    function crearBotonEvento(text, color) {
+        button = document.createElement("button")
+        button.type = "button"
+        button.textContent = text
+        button.classList = `btn btn-${color}`
+        button.dataset.dismiss = "modal"
+        footer.appendChild(button)
+
+    }
+
 }
-
-let tdElements = document.querySelectorAll("td")
-tdElements.onclick = () => { console.log("asd") }
-
-
-$(".agregar-evento").click(() => { console.log("asd") })
-
-
 
 function creaBotonFDS() {
     boton = document.createElement("button")
