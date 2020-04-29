@@ -1,4 +1,4 @@
-
+creaBotonFDS();
 modalCrearEvento();
 crearCalendario();
 
@@ -12,7 +12,7 @@ function crearCalendario() {
         ARRAY_DIAS.forEach((DIA) => {
             $dia = document.createElement("th")
             $dia.textContent = DIA
-            $dia.classList = "th-semanas"
+            $dia.classList = `th-semanas th-${DIA}`
             document.querySelector("#dias-semana").appendChild($dia)
         })
     }
@@ -39,7 +39,7 @@ function numerarCalendario(diaDeSemanaInicial, numeroDeDiasDelMes) {
         if (obtenerCuadros[i].classList.contains(`cuadro-${diaDeSemanaInicial}`) === true) {
             for (let j = 0; j < 33; j++) {
                 if (j < numeroDeDiasDelMes) {
-                    obtenerCuadros[i].textContent = `${j + 1}`
+                    obtenerCuadros[i].textContent = `${j + 1}.`
                     obtenerCuadros[i].dataset.dia = `${j + 1}`
                     i++
                 } else {
@@ -58,13 +58,14 @@ colocarIconoCrearEevento();
 function colocarIconoCrearEevento() {
     let dias = document.querySelectorAll(".cuadro")
     for (let i = 0; i < dias.length; i++) {
-        crearDiv = document.createElement("div")
-        crearDiv.className = "div-agregar-evento"
-        crearIMG = document.createElement("img")
-        crearIMG.src = "/img/agregar-evento-img.svg"
-        crearIMG.className = "agregar-evento"
-        crearDiv.appendChild(crearIMG)
-        dias[i].appendChild(crearDiv)
+        // crearDiv = document.createElement("div")
+        // crearDiv.className = "div-agregar-evento"
+        crearButton = document.createElement("button")
+        crearButton.type = "image"
+        crearButton.src = "/img/agregar-evento-img.svg"
+        crearButton.classList = "agregar-evento rounded float-right"
+        // crearDiv.appendChild(crearIMG)
+        dias[i].appendChild(crearButton)
     }
 }
 
@@ -123,6 +124,48 @@ function modalCrearEvento() {
     body.appendChild(contenedorTermina)
 }
 
-document.querySelectorAll(".cuadro").onclick = () => {
+let tdElements = document.querySelectorAll("td")
+tdElements.onclick = () => { console.log("asd") }
 
+
+$(".agregar-evento").click(() => { console.log("asd") })
+
+
+
+function creaBotonFDS() {
+    boton = document.createElement("button")
+    boton.id = "boton-fds"
+    boton.textContent = "Test"
+    document.querySelector("body").appendChild(boton)
 }
+$("#boton-fds").click(() => {
+
+    const filaDomingo = document.querySelectorAll(".cuadro-Domingo")
+    const filaSabado = document.querySelectorAll(".cuadro-Sabado")
+    const headerDomingo = document.querySelectorAll(".th-Domingo")
+    const headerSabado = document.querySelectorAll(".th-Sabado")
+
+    ocultarMostrarFDS(headerDomingo)
+    ocultarMostrarFDS(headerSabado)
+    ocultarMostrarFDS(filaDomingo)
+    ocultarMostrarFDS(filaSabado)
+
+    function ocultarMostrarFDS(elemento) {
+        elemento.forEach((dia) => {
+            debugger
+            if (dia.classList.contains("invisible") === true) {
+                dia.classList.remove("invisible")
+                dia.classList.add("visible")
+                return
+            } if (dia.classList.contains("invisible") === false) {
+                dia.classList.remove("visible")
+                dia.classList.add("invisible")
+                return
+            } else {
+                dia.classList.add("invisible")
+            }
+
+
+        })
+    }
+})
