@@ -13,7 +13,7 @@ function crearCalendario() {
     }
     crearGrillaCalendario(ARRAY_DIAS)
     function crearGrillaCalendario(ARRAY_DIAS) {
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
             crearFila = document.createElement("tr")
             ARRAY_DIAS.forEach((DIA) => {
                 nuevoCuadro = document.createElement("td")
