@@ -60,10 +60,12 @@ function colocarIconoCrearEevento() {
     for (let i = 0; i < dias.length; i++) {
         // crearDiv = document.createElement("div")
         // crearDiv.className = "div-agregar-evento"
-        crearButton = document.createElement("button")
+        crearButton = document.createElement("input")
         crearButton.type = "image"
         crearButton.src = "/img/agregar-evento-img.svg"
         crearButton.classList = "agregar-evento rounded float-right"
+        crearButton.dataset.toggle = "modal"
+        crearButton.dataset.target = "#modal"
         // crearDiv.appendChild(crearIMG)
         dias[i].appendChild(crearButton)
     }
