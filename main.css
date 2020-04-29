@@ -1,3 +1,13 @@
 .cuadro{
     height: 80px;
 }
+
+.th-semanas{
+    width: 100px;
+    text-align: center;
+}
+
+.cuadro-deshabilitado{
+    height: 80px;
+    background-color: gray;
+}
