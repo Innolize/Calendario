@@ -1,5 +1,5 @@
 .cuadro{
-    height: 80px;
+    height: 100px;
 }
 
 .th-semanas{
@@ -10,4 +10,15 @@
 .cuadro-deshabilitado{
     height: 80px;
     background-color: gray;
+}
+
+.agregar-evento{
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    right: 0px;
+}
+
+.div-agregar-evento{
+    position: absolute;
 }
