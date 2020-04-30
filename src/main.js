@@ -1,5 +1,4 @@
 creaBotonFDS();
-modalCrearEvento();
 crearCalendario();
 
 
@@ -54,7 +53,6 @@ function numerarCalendario(diaDeSemanaInicial, numeroDeDiasDelMes) {
             obtenerCuadros[i].classList.remove("cuadro")
             obtenerCuadros[i].classList.add("cuadro-deshabilitado")
         }
-
 }
 colocarIconoCrearEevento();
 function colocarIconoCrearEevento() {
@@ -76,73 +74,79 @@ function colocarIconoCrearEevento() {
 
 //modal
 
+$(".agregar-evento").click((e) => {
+    diaNumero = e.target.parentElement.getAttribute("data-dia")
 
-function modalCrearEvento() {
-    header = document.querySelector(".modal-title")
-    header.textContent = "Crear evento"
+    modalCrearEvento(diaNumero);
 
-    body = document.querySelector(".modal-body")
-    body.innerHTML = ""
+    function modalCrearEvento(diaNumero) {
+        header = document.querySelector(".modal-title")
+        header.textContent = `Crear evento el dia ${diaNumero}`
 
-    contenedorTitulo = document.createElement("div")
-    labelTitulo = document.createElement("label")
-    labelTitulo.textContent = "Nombre del evento:"
-    inputTitulo = document.createElement("input")
-    inputTitulo.id = "input-titulo"
-    contenedorTitulo.appendChild(labelTitulo)
-    contenedorTitulo.appendChild(inputTitulo)
+        body = document.querySelector(".modal-body")
+        body.innerHTML = ""
 
-    contenedorDescripcion = document.createElement("div")
-    labelDescripcion = document.createElement("label")
-    labelDescripcion.textContent = "Descripcion:"
-    inputDescripcion = document.createElement("input")
-    inputDescripcion.id = "input-descripcion"
-    contenedorDescripcion.appendChild(labelDescripcion)
-    contenedorDescripcion.appendChild(inputDescripcion)
+        contenedorTitulo = document.createElement("div")
+        labelTitulo = document.createElement("label")
+        labelTitulo.textContent = "Nombre del evento:"
+        inputTitulo = document.createElement("input")
+        inputTitulo.id = "input-titulo"
+        contenedorTitulo.appendChild(labelTitulo)
+        contenedorTitulo.appendChild(inputTitulo)
 
-    contenedorComienza = document.createElement("div")
-    labelComienza = document.createElement("label")
-    labelComienza.textContent = "Comienza:"
-    inputComienza = document.createElement("input")
-    inputComienza.id = "input-comienza"
-    inputComienza.type = "number"
-    inputComienza.setAttribute("placeholder", "HH:MM")
-    contenedorComienza.appendChild(labelComienza)
-    contenedorComienza.appendChild(inputComienza)
+        contenedorDescripcion = document.createElement("div")
+        labelDescripcion = document.createElement("label")
+        labelDescripcion.textContent = "Descripcion:"
+        inputDescripcion = document.createElement("input")
+        inputDescripcion.id = "input-descripcion"
+        contenedorDescripcion.appendChild(labelDescripcion)
+        contenedorDescripcion.appendChild(inputDescripcion)
 
-    contenedorTermina = document.createElement("div")
-    labelTermina = document.createElement("label")
-    labelTermina.textContent = "Termina:"
-    inputTermina = document.createElement("input")
-    inputTermina.id = "input-termina"
-    inputTermina.type = "number"
-    inputTermina.setAttribute("placeholder", "HH:MM")
-    contenedorTermina.appendChild(labelTermina)
-    contenedorTermina.appendChild(inputTermina)
+        contenedorComienza = document.createElement("div")
+        labelComienza = document.createElement("label")
+        labelComienza.textContent = "Comienza:"
+        inputComienza = document.createElement("input")
+        inputComienza.id = "input-comienza"
+        inputComienza.type = "number"
+        inputComienza.setAttribute("placeholder", "HH:MM")
+        contenedorComienza.appendChild(labelComienza)
+        contenedorComienza.appendChild(inputComienza)
 
-
-
-    body.appendChild(contenedorTitulo)
-    body.appendChild(contenedorDescripcion)
-    body.appendChild(contenedorComienza)
-    body.appendChild(contenedorTermina)
+        contenedorTermina = document.createElement("div")
+        labelTermina = document.createElement("label")
+        labelTermina.textContent = "Termina:"
+        inputTermina = document.createElement("input")
+        inputTermina.id = "input-termina"
+        inputTermina.type = "number"
+        inputTermina.setAttribute("placeholder", "HH:MM")
+        contenedorTermina.appendChild(labelTermina)
+        contenedorTermina.appendChild(inputTermina)
 
 
-    footer = document.querySelector(".modal-footer")
-    footer.innerHTML = ""
-    crearBotonEvento("Cancelar", "secondary")
-    crearBotonEvento("Crear", "primary")
-    function crearBotonEvento(text, color) {
-        button = document.createElement("button")
-        button.type = "button"
-        button.textContent = text
-        button.classList = `btn btn-${color}`
-        button.dataset.dismiss = "modal"
-        footer.appendChild(button)
+
+        body.appendChild(contenedorTitulo)
+        body.appendChild(contenedorDescripcion)
+        body.appendChild(contenedorComienza)
+        body.appendChild(contenedorTermina)
+
+
+        footer = document.querySelector(".modal-footer")
+        footer.innerHTML = ""
+        crearBotonEvento("Cancelar", "secondary")
+        crearBotonEvento("Crear", "primary")
+        function crearBotonEvento(text, color) {
+            button = document.createElement("button")
+            button.type = "button"
+            button.textContent = text
+            button.classList = `btn btn-${color}`
+            button.dataset.dismiss = "modal"
+            footer.appendChild(button)
+
+        }
 
     }
 
-}
+})
 
 function creaBotonFDS() {
     boton = document.createElement("button")
