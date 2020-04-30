@@ -1,3 +1,22 @@
 .cuadro{
+    height: 100px;
+}
+
+.th-semanas{
+    background-color: sandybrown;
+    width: 100px;
+    text-align: center;
+}
+
+.cuadro-deshabilitado{
     height: 80px;
+    background-color: gray;
+}
+
+.agregar-evento{
+    width: 20px;
+    height: 20px;
+}
+body{
+    background-color: red;
 }
