@@ -1,5 +1,5 @@
 
-
+creaBotonFDS();
 
 
 function crearCalendarioMensual() {
@@ -157,7 +157,7 @@ function creaBotonFDS() {
     document.querySelector("body").appendChild(boton)
 }
 
-function ocultarFDSMensual() {
+function ocultarFDS() {
     $("#boton-fds").click(() => {
 
         const filaDomingo = document.querySelectorAll(".cuadro-Domingo")
@@ -215,12 +215,12 @@ $("#calendario-mensual").click(() => {
     borrarContenido(tbodyDias)
 
 
-    creaBotonFDS();
+
     crearCalendarioMensual();
     numerarCalendarioMensual("Domingo", "30");
     colocarIconoCrearEevento();
     agregarEventoMensual()
-    ocultarFDSMensual()
+    ocultarFDS()
 })
 
 function borrarContenido(elemento) {
@@ -230,6 +230,9 @@ function borrarContenido(elemento) {
 
 $("#calendario-semanal").click(() => {
     const trDiaSemanas = document.querySelector("#dias-semana")
+    const contenidoTabla = document.querySelector("#dias-calendario")
+
+    borrarContenido(contenidoTabla)
     borrarContenido(trDiaSemanas)
 
     ARRAY_DIAS = ["Horario", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
@@ -243,12 +246,30 @@ $("#calendario-semanal").click(() => {
             document.querySelector("#dias-semana").appendChild($dia)
         })
     }
+    crearHorariosSemanales()
+    function crearHorariosSemanales() {
+        const contenidoTabla = document.querySelector("#dias-calendario")
+        const HORAS_DEL_DIA = 24
+        const DIAS_DE_LA_SEMANA = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+        for (let i = 0; i < HORAS_DEL_DIA; i++) {
+            filaTabla = document.createElement("tr")
+            filaTabla.id = `fila-tabla-${i + 1}`
+            contenidoTabla.appendChild(filaTabla)
 
+            nuevoCuadro = document.createElement("td")
+            nuevoCuadro.textContent = `${i + 1}:00`
+            filaTabla.appendChild(nuevoCuadro)
 
+            DIAS_DE_LA_SEMANA.forEach((elemento) => {
+                nuevoCuadro = document.createElement("td")
+                nuevoCuadro.classList = `cuadro-${elemento}`
+                nuevoCuadro.dataset.hora = `${i + 1}`
+                document.querySelector(`#fila-tabla-${i + 1}`).appendChild(nuevoCuadro)
+            })
+        }
 
-
-
-
+    }
+    ocultarFDS()
 
 
 
