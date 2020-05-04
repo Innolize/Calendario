@@ -1,4 +1,4 @@
-
+import { obtenerDomingo, obtenerDia } from "../utilidades/utilidades.js"
 
 export function crearCalendarioSemanal() {
     const trDiaSemanas = document.querySelector("#dias-semana")
@@ -7,13 +7,19 @@ export function crearCalendarioSemanal() {
     borrarContenido(contenidoTabla)
     borrarContenido(trDiaSemanas)
 
-    const ARRAY_HEADERS = ["Horario", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
-    crearCalendarioHeaders(ARRAY_HEADERS)
+    const ARRAY_HEADERS = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+    crearCalendarioHeaders(ARRAY_HEADERS, obtenerDomingo())
 
-    function crearCalendarioHeaders(ARRAY_HEADERS) {
-        ARRAY_HEADERS.forEach((DIA) => {
+    function crearCalendarioHeaders(ARRAY_HEADERS, fecha) {
+        let numeroDia = fecha.getDate()
+        const $horario = document.createElement("th")
+        $horario.textContent = "Horario"
+        $horario.classList = `th-semanas th-horario`
+        document.querySelector("#dias-semana").appendChild($horario)
+
+        ARRAY_HEADERS.forEach((DIA, i) => {
             const $dia = document.createElement("th")
-            $dia.textContent = DIA
+            $dia.textContent = `${DIA} ${numeroDia + i}`
             $dia.classList = `th-semanas th-${DIA}`
             document.querySelector("#dias-semana").appendChild($dia)
         })
