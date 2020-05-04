@@ -1,4 +1,4 @@
-import { obtenerDomingo, obtenerDia } from "../utilidades/utilidades.js"
+import { obtenerDomingo} from "../utilidades/utilidades.js"
 
 export function crearCalendarioSemanal() {
     const trDiaSemanas = document.querySelector("#dias-semana")
@@ -24,24 +24,27 @@ export function crearCalendarioSemanal() {
             document.querySelector("#dias-semana").appendChild($dia)
         })
     }
-    crearHorariosSemanales()
-    function crearHorariosSemanales() {
+
+    crearHorariosSemanales(obtenerDomingo())
+    function crearHorariosSemanales(fecha) {
+        let numeroDia = fecha.getDate()
         const contenidoTabla = document.querySelector("#dias-calendario")
         const HORAS_DEL_DIA = 24
         const DIAS_DE_LA_SEMANA = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+
         for (let i = 0; i < HORAS_DEL_DIA; i++) {
             const filaTabla = document.createElement("tr")
             filaTabla.id = `fila-tabla-${i + 1}`
             contenidoTabla.appendChild(filaTabla)
 
             const nuevoCuadro = document.createElement("td")
-            nuevoCuadro.textContent = `${i + 1}:00`
+            nuevoCuadro.textContent = `${i }:00`
             filaTabla.appendChild(nuevoCuadro)
-
-            DIAS_DE_LA_SEMANA.forEach((elemento) => {
+            DIAS_DE_LA_SEMANA.forEach((elemento, j) => {
                 const nuevoCuadro = document.createElement("td")
                 nuevoCuadro.classList = `cuadro-${elemento}`
-                nuevoCuadro.dataset.hora = `${i + 1}`
+                nuevoCuadro.dataset.hora = `${i}`
+                nuevoCuadro.dataset.dia = `${numeroDia + j}`
                 document.querySelector(`#fila-tabla-${i + 1}`).appendChild(nuevoCuadro)
             })
         }

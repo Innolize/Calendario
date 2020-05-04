@@ -1,9 +1,12 @@
 export function obtenerDomingo() {
     let fecha = new Date()
     for (let i = 0; i < 7; i++) {
-        fecha.setDate(fecha.getDate() - 1)
+
         if (fecha.getDay() == 0) {
             return fecha
+        }
+        else {
+            fecha.setDate(fecha.getDate() - 1)
         }
     }
 }
