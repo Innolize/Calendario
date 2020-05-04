@@ -12,8 +12,8 @@ export default
       "displayName": "Test Test",
       "self": true
     },
-    "start": "2020-04-26T22:43:52.214Z",
-    "end": "2020-04-26T23:43:52.214Z",
+    "start": "2020-05-4T22:43:52.214Z",
+    "end": "2020-05-5T03:43:52.214Z",
     "attendees": [
       {
         "id": 1,
@@ -43,7 +43,7 @@ export default
   },
   {
     "id": 2,
-    "created": "2020-04-26T22:39:50.984Z",
+    "created": "2020-05-26T22:39:50.984Z",
     "updated": "2020-04-26T22:39:50.984Z",
     "summary": "Evento 2",
     "description": "Descripción prolongada del evento 2",
@@ -54,7 +54,7 @@ export default
       "displayName": "Test2 Test",
       "self": false
     },
-    "start": "2020-04-27T22:43:52.214Z",
+    "start": "2020-05-8T22:43:52.214Z",
     "end": "2020-04-27T23:43:52.214Z",
     "attendees": [
       {
