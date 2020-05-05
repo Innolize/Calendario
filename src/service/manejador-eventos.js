@@ -1,7 +1,7 @@
 import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
 
 export async function obtenerEventos() {
-    const r = await fetch("../../data/fake-data1.js")
+    const r = await fetch("../../data/fake-data1.json")
     const rJSON = await r.json()
     return rJSON
 }
