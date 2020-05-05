@@ -12,8 +12,8 @@ export default
       "displayName": "Test Test",
       "self": true
     },
-    "start": "2020-05-4T22:43:52.214Z",
-    "end": "2020-05-5T03:43:52.214Z",
+    "start": "2020-05-04T22:43:52.214Z",
+    "end": "2020-05-05T03:43:52.214Z",
     "attendees": [
       {
         "id": 1,
@@ -54,7 +54,7 @@ export default
       "displayName": "Test2 Test",
       "self": false
     },
-    "start": "2020-05-8T22:43:52.214Z",
+    "start": "2020-05-08T22:43:52.214Z",
     "end": "2020-04-27T23:43:52.214Z",
     "attendees": [
       {

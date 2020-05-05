@@ -1,57 +1,73 @@
-import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras } from "../utilidades/utilidades.js"
+import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
 
 export function mostrarRespuestaAPISemanal(fakeData) {
     let data = fakeData[0]
     let classData = new respuestaAPI(data)
-    console.log(classData)
-    console.log(obtenerDia(classData.start))
-    console.log(obtenerHora(classData.start))
-    backgroundTabla(data)
-    function backgroundTabla(data) {
-        let dia = obtenerDia(data.start)
-        let hora = obtenerDia(data.start)
-        let color = data.color
-        let titulo = data.summary
-        const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
 
-        const div = document.createElement("p")
-        div.style.backgroundColor = `${color}`
-        div.className = "col"
-        div.style.overflow = "hidden"
-        div.innerText = titulo
-        cuadroSeleccionado.appendChild(div)
+    marcarInicioAFinEvento(classData)
 
-        const div2 = document.createElement("p")
-        div2.style.backgroundColor = `${color}`
-        div2.className = "col"
-        div2.style.overflow = "hidden"
-        div2.innerText = titulo
-        cuadroSeleccionado.appendChild(div2)
+    let diferenciaHoras = calcularDiferenciaHoras(classData.start, classData.end)
 
-        // function marcarInicioAFinEvento(classData) {
-        let start = classData.start
-        let end = classData.end
+    mostrarDuracionEvento(classData, diferenciaHoras)
 
-        //     let dia = obtenerDia(data.start)
-        //     let hora = obtenerDia(data.start)
-        //     let color = data.color
-        debugger
-        calcularDiferenciaHoras(start, end)
+
+    function marcarInicioAFinEvento(classData) {
+        mostrarTituloEvento(classData)
+        function mostrarTituloEvento(classData) {
+            let fecha = new Date(`${classData.start}`)
+
+            let dia = agregarCeros(fecha.getDate(), 2)
+            let hora = agregarCeros(fecha.getHours(), 2)
+            let color = classData.color
+            let titulo = data.summary
+            let id = classData.id
+            debugger
+            const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
+
+            const div = document.createElement("p")
+            div.style.backgroundColor = `${color}`
+            div.className = "col"
+            div.style.overflow = "hidden"
+            div.innerText = titulo
+            div.dataset.id = id
+            cuadroSeleccionado.appendChild(div)
+
+        }
 
 
 
-        // }
-        // classData.start =
-        //     classData.end = 
+        function mostrarDuracionEvento(classData, diferenciaHoras) {
 
+            let fecha = new Date(`${classData.start}`)
+            for (let i = 0; i < diferenciaHoras; i++) {
+                debugger
+                console.log(fecha)
+                fecha.setHours(fecha.getHours() + 1)
+                console.log(fecha)
+                let dia = agregarCeros(fecha.getDate(), 2)
+                let hora = agregarCeros(fecha.getHours(), 2)
+                let color = classData.color
+                let id = classData.id
+                const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
 
-
+                const div = document.createElement("div")
+                div.style.backgroundColor = `${color}`
+                div.className = "col"
+                div.style.overflow = "hidden"
+                div.innerText = "_ "
+                div.dataset.id = id
+                cuadroSeleccionado.appendChild(div)
+            }
+        }
 
 
 
     }
-
+    // classData.start =
+    //     classData.end = 
 }
+
+
 
 
 

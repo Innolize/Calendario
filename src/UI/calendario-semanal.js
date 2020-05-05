@@ -1,4 +1,4 @@
-import { obtenerDomingo} from "../utilidades/utilidades.js"
+import { obtenerDomingo, agregarCeros } from "../utilidades/utilidades.js"
 
 export function crearCalendarioSemanal() {
     const trDiaSemanas = document.querySelector("#dias-semana")
@@ -38,13 +38,13 @@ export function crearCalendarioSemanal() {
             contenidoTabla.appendChild(filaTabla)
 
             const nuevoCuadro = document.createElement("td")
-            nuevoCuadro.textContent = `${i }:00`
+            nuevoCuadro.textContent = `${agregarCeros(i, 2)}:00`
             filaTabla.appendChild(nuevoCuadro)
             DIAS_DE_LA_SEMANA.forEach((elemento, j) => {
                 const nuevoCuadro = document.createElement("td")
                 nuevoCuadro.classList = `cuadro-${elemento}`
-                nuevoCuadro.dataset.hora = `${i}`
-                nuevoCuadro.dataset.dia = `${numeroDia + j}`
+                nuevoCuadro.dataset.hora = `${agregarCeros(i, 2)}`
+                nuevoCuadro.dataset.dia = `${agregarCeros(numeroDia + j, 2)}`
                 document.querySelector(`#fila-tabla-${i + 1}`).appendChild(nuevoCuadro)
             })
         }

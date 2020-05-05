@@ -1,3 +1,11 @@
+export function agregarCeros(numero, longitud) {
+    let string = "" + numero;
+    while (string.length < longitud) {
+        string = "0" + string;
+    }
+    return string
+}
+
 export function obtenerDomingo() {
     let fecha = new Date()
     for (let i = 0; i < 7; i++) {
@@ -55,5 +63,5 @@ export function calcularDiferenciaHoras(primeraFecha, segundaFecha) {
 
     let diferencia = segundoValor.getTime() - primerValor.getTime()
     let diferenciaEnHoras = diferencia / (1000 * 3600)
-    return console.log(Math.floor(diferenciaEnHoras))
+    return Math.floor(diferenciaEnHoras)
 }
