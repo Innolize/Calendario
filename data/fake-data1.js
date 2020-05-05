@@ -1,4 +1,3 @@
-export default
   [{
     "id": 1,
     "created": "2020-04-26T22:39:50.984Z",

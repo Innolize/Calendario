@@ -1,14 +1,19 @@
 import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
 
+export async function obtenerEventos() {
+    const r = await fetch("../../data/fake-data1.js")
+    const rJSON = await r.json()
+    return rJSON
+}
+
 export function mostrarRespuestaAPISemanal(fakeData) {
-    let data = fakeData[0]
-    let classData = new respuestaAPI(data)
+    let data = fakeData
+    data.forEach((elemento) => {
+        console.log(elemento)
+        marcarInicioAFinEvento(elemento)
+    })
 
-    marcarInicioAFinEvento(classData)
 
-    let diferenciaHoras = calcularDiferenciaHoras(classData.start, classData.end)
-
-    mostrarDuracionEvento(classData, diferenciaHoras)
 
 
     function marcarInicioAFinEvento(classData) {
@@ -19,12 +24,11 @@ export function mostrarRespuestaAPISemanal(fakeData) {
             let dia = agregarCeros(fecha.getDate(), 2)
             let hora = agregarCeros(fecha.getHours(), 2)
             let color = classData.color
-            let titulo = data.summary
+            let titulo = classData.summary
             let id = classData.id
-            debugger
             const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
 
-            const div = document.createElement("p")
+            const div = document.createElement("div")
             div.style.backgroundColor = `${color}`
             div.className = "col"
             div.style.overflow = "hidden"
@@ -34,13 +38,15 @@ export function mostrarRespuestaAPISemanal(fakeData) {
 
         }
 
+        let diferenciaHoras = calcularDiferenciaHoras(classData.start, classData.end)
+
+        mostrarDuracionEvento(classData, diferenciaHoras)
 
 
         function mostrarDuracionEvento(classData, diferenciaHoras) {
 
             let fecha = new Date(`${classData.start}`)
             for (let i = 0; i < diferenciaHoras; i++) {
-                debugger
                 console.log(fecha)
                 fecha.setHours(fecha.getHours() + 1)
                 console.log(fecha)
