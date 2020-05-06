@@ -5,7 +5,7 @@
       "created": "2020-04-26T22:39:50.984Z",
       "updated": "2020-04-26T22:39:50.984Z",
       "summary": "Evento 1",
-      "description": "Descripción prolongada del evento 1",
+      "description": "Descripcion corta del evento 23",
       "color": "#F00",
       "creator": {
         "id": 1,
@@ -83,6 +83,11 @@
           "responseStatus": false
         }
       ]
+    },
+    {
+      "id": " ",
+      "title": "clean room",
+      "completed": false
     }
   ]
 }

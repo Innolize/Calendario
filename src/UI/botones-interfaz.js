@@ -53,3 +53,10 @@ export function creaBotonFDS() {
         }
     })
 }
+
+export function botonCrearEvento(){
+    const button = document.createElement("button")
+    button.textContent = "Crear nuevo evento"
+    button.id = "crear-evento"
+    document.querySelector("#tipo-calendario").appendChild(button)
+}
