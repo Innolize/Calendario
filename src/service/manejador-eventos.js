@@ -1,7 +1,7 @@
 import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
 
 export async function obtenerEventos() {
-    const r = await fetch("../../data/fake-data1.js")
+    const r = await fetch("../../data/fake-data1.json")
     const rJSON = await r.json()
     return rJSON
 }
@@ -92,4 +92,44 @@ class respuestaAPI {
         this.summary = respuesta.summary
         this.updated = respuesta.updated
     }
+}
+
+export async function obtenerUnEvento(id) {
+    const r = await fetch(`http://localhost:3000/eventos/${id}`)
+    const rJSON = await r.json()
+    return rJSON
+}
+
+
+export function fetchModificarEvento(id, objeto) {
+    fetch(`http://localhost:3000/eventos/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(
+            objeto
+        ),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+
+    })
+}
+
+export function fetchEliminarEvento(id) {
+    fetch(`http://localhost:3000/eventos/${id}`, {
+        method: "DELETE"
+    })
+}
+
+export function fetchCrearEvento(objeto) {
+    fetch(`http://localhost:3000/eventos`, {
+        method: "POST",
+        body: JSON.stringify(
+            objeto
+        ),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+
+
 }
