@@ -24,14 +24,16 @@ function seleccionarCalendario(funcionMensual, funcionSemanal) {
     $("#calendario-mensual").click(() => {
         funcionMensual()
     })
+    
     $("#calendario-semanal").click(() => {
         funcionSemanal()
         mostrarRespuestaAPISemanal(fakeData)
     })
+
     $("td").click((e) => {
         verificarSiContieneData(e)
-
     })
+
     $("#crear-evento").click(() => {
         console.log("asd")
         debugger

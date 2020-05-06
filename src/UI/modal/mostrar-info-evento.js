@@ -97,3 +97,4 @@ function obtenerImagenParticipante(respuestaUsuario) {
         return "far fa-question-circle"
     }
 }
+
