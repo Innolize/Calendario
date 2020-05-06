@@ -1,6 +1,6 @@
 import { obtenerUnEvento, fetchModificarEvento } from "../service/manejador-eventos.js"
 import { modalModificarEvento } from "./modal/modificar-evento.js"
-
+import {fetchEliminarEvento} from "../service/manejador-eventos.js"
 export function crearBotonesTipoDeCalendario() {
 
     const botonSemanal = document.createElement("button")
@@ -97,11 +97,13 @@ export function crearBotonEliminar(evento, padre) {
     } else {
         button.classList.add("disabled")
     }
-    padre.appendChild(button)
 
-    $("#boton-eliminar").click((evento) => {
-        fetchEliminarEvento(evento.id)
+    padre.appendChild(button)
+    $("#boton-eliminar").click((e) => {
+        let id = e.target.getAttribute("data-evento-id")
+        fetchEliminarEvento(id)
     })
+
 
 }
 
