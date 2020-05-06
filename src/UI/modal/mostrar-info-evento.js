@@ -1,4 +1,5 @@
 import { obtenerEventos } from "../../service/manejador-eventos.js"
+import { crearBotonModificar, crearBotonEliminar, crearBotonCerrar } from "../botones-interfaz.js"
 
 export function verificarSiContieneData(e) {
     debugger
@@ -83,6 +84,13 @@ function modalDatosDeEvento(evento) {
     body.appendChild(contenedorComienza)
     body.appendChild(contenedorTermina)
     body.appendChild(contenedorParaticipantes)
+
+    crearBotonEliminar(evento, footer)
+    crearBotonModificar(evento, footer)
+    crearBotonCerrar(footer)
+
+
+
 
     $("#modal").modal("show")
 

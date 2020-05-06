@@ -140,28 +140,7 @@ function agregarEventoMensual() {
                 footer.appendChild(button)
 
             }
-            function crearBotonModificar(evento) {
-                const button = document.createElement("button")
-                button.type = "button"
-                button.textContent = "Modificar"
-                button.classList = `btn btn-info`
-                if (evento.creator.id == 1) {
-                    button.dataset.eventoID = evento.id
-                } else {
-                    button.classList.add("disabled")
-                }
-            }
-            function crearBotonEliminar(evento) {
-                const button = document.createElement("button")
-                button.type = "button"
-                button.textContent = "Eliminar"
-                button.classList = `btn btn-dark`
-                if (evento.creator.id == 1) {
-                    button.dataset.eventoID = evento.id
-                } else {
-                    button.classList.add("disabled")
-                }
-            }
+
 
 
         }

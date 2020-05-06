@@ -1,3 +1,6 @@
+import { obtenerUnEvento, fetchModificarEvento } from "../service/manejador-eventos.js"
+import { modalModificarEvento } from "./modal/modificar-evento.js"
+
 export function crearBotonesTipoDeCalendario() {
 
     const botonSemanal = document.createElement("button")
@@ -54,9 +57,117 @@ export function creaBotonFDS() {
     })
 }
 
-export function botonCrearEvento(){
+export function botonCrearEvento() {
     const button = document.createElement("button")
     button.textContent = "Crear nuevo evento"
     button.id = "crear-evento"
     document.querySelector("#tipo-calendario").appendChild(button)
 }
+
+export function crearBotonModificar(evento, padre) {
+    const button = document.createElement("button")
+    button.type = "button"
+    button.textContent = "Modificar"
+    button.classList = `btn btn-info`
+    button.id = "boton-modificar"
+    if (evento.creator.id == 1) {
+        button.dataset.eventoId = evento.id
+    } else {
+        button.classList.add("disabled")
+    }
+    padre.appendChild(button)
+    $("#boton-modificar").click(() => {
+        const id = document.querySelector("#boton-modificar").getAttribute("data-evento-id")
+        obtenerDatosAModificar(id)
+        async function obtenerDatosAModificar(id) {
+            let evento = await obtenerUnEvento(id)
+            modalModificarEvento(evento)
+
+        }
+    })
+}
+export function crearBotonEliminar(evento, padre) {
+    const button = document.createElement("button")
+    button.type = "button"
+    button.textContent = "Eliminar"
+    button.classList = `btn btn-dark`
+    button.id = "boton-eliminar"
+    if (evento.creator.id == 1) {
+        button.dataset.eventoId = evento.id
+    } else {
+        button.classList.add("disabled")
+    }
+    padre.appendChild(button)
+
+    $("#boton-eliminar").click((evento) => {
+        fetchEliminarEvento(evento.id)
+    })
+
+}
+
+
+export function crearBotonCerrar(padre) {
+    const button = document.createElement("button")
+    button.type = "button"
+    button.textContent = "Cerrar"
+    button.classList = `btn btn-success`
+    button.id = "boton-cerrar"
+    padre.appendChild(button)
+    $("#boton-cerrar").click(() => {
+        $("#modal").modal("hide")
+    })
+}
+
+export function modificarSiguiente(idEvento, padre) {
+    debugger
+    const botonSiguiente = document.createElement("button")
+    botonSiguiente.textContent = "Siguiente"
+    botonSiguiente.id = "modificar-siguiente"
+    padre.appendChild(botonSiguiente)
+
+    $("#modificar-siguiente").click(() => {
+        debugger
+        const nombreDelEvento = document.querySelector("#crear-evento-titulo").value
+        const descripcion = document.querySelector("#crear-evento-descripcion").value
+        const colorEvento = document.querySelector("#crear-evento-color").value
+        const comienzaFecha = document.querySelector("#crear-evento-comienza-fecha").value
+        const comienzaHora = document.querySelector("#crear-evento-comienza-hora").value
+        const terminaFecha = document.querySelector("#crear-evento-termina-fecha").value
+        const terminaHora = document.querySelector("#crear-evento-termina-hora").value
+        const comienza = obtenerFecha(comienzaFecha, comienzaHora)
+        const termina = obtenerFecha(terminaFecha, terminaHora)
+
+        function obtenerFecha(comienzaFecha, comienzaHora) {
+            let fecha = new Date(`${comienzaFecha} ${comienzaHora}`)
+            return fecha
+        }
+        debugger
+
+        let eventoModificado = {
+            updated: new Date(),
+            summary: nombreDelEvento,
+            description: descripcion,
+            color: colorEvento,
+            start: comienza,
+            end: termina,
+
+        }
+
+        fetchModificarEvento(idEvento, eventoModificado)
+
+
+
+
+
+
+
+
+
+
+
+    })
+
+
+
+}
+

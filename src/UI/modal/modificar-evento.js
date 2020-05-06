@@ -1,5 +1,8 @@
-function modalModificarEvento(evento){
-const header = document.querySelector(".modal-title")
+import { modificarSiguiente } from "../botones-interfaz.js"
+
+export function modalModificarEvento(evento) {
+    debugger
+    const header = document.querySelector(".modal-title")
     header.textContent = `${evento.summary}`
 
     const body = document.querySelector(".modal-body")
@@ -30,8 +33,8 @@ const header = document.querySelector(".modal-title")
     labelComienzaHora.textContent = "a las:"
     const inputComienzaFecha = document.createElement("input")
     inputComienzaFecha.value = `${evento.start.split("T")[0]}`
-    inputComienzaHora.value = `${evento.start.split("T")[1].split(".")[0]}`
     const inputComienzaHora = document.createElement("input")
+    inputComienzaHora.value = `${evento.start.split("T")[1].split(".")[0]}`
     inputComienzaHora.id = "crear-evento-comienza-hora"
     inputComienzaFecha.id = "crear-evento-comienza-fecha"
     inputComienzaHora.setAttribute("placeholder", "HH:MM")
@@ -50,7 +53,7 @@ const header = document.querySelector(".modal-title")
     inputTerminaFecha.id = "crear-evento-termina-fecha"
     const inputTerminaHora = document.createElement("input")
     inputTerminaHora.id = "crear-evento-termina-hora"
-    inputTerminFecha.value = `${evento.end.split("T")[0]}`
+    inputTerminaFecha.value = `${evento.end.split("T")[0]}`
     inputTerminaHora.value = `${evento.end.split("T")[1].split(".")[0]}`
     inputTerminaFecha.setAttribute("placeholder", " ej: 20/5/2020")
     inputTerminaHora.setAttribute("placeholder", "HH:MM")
@@ -63,7 +66,8 @@ const header = document.querySelector(".modal-title")
     const labelColor = document.createElement("label")
     labelColor.textContent = "Selecciona color:"
     const inputColor = document.createElement("input")
-    inputColor.value = ${evento.color}
+    inputColor.value = evento.color
+    inputColor.id = "crear-evento-color"
     inputColor.setAttribute("placeholder", `ej: "red"o "#00FFFF"`)
     contenedorColor.appendChild(labelColor)
     contenedorColor.appendChild(inputColor)
@@ -76,5 +80,16 @@ const header = document.querySelector(".modal-title")
     body.appendChild(contenedorTermina)
     body.appendChild(contenedorColor)
 
+    const footer = document.querySelector(".modal-footer")
+    footer.innerHTML = ""
+
+    debugger
+    const contenedorFooter = document.createElement("div")
+    const labelTexto = document.createElement("label")
+    labelTexto.textContent = "Presiona siguiente para modificar el evento"
+    contenedorFooter.appendChild(labelTexto)
+    footer.appendChild(contenedorFooter)
+
+    modificarSiguiente(evento.id, contenedorFooter)
 
 }

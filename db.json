@@ -1,11 +1,11 @@
 {
-  "posts": [
+  "eventos": [
     {
       "id": 1,
       "created": "2020-04-26T22:39:50.984Z",
-      "updated": "2020-04-26T22:39:50.984Z",
-      "summary": "Evento 1",
-      "description": "Descripcion corta del evento 23",
+      "updated": "2020-05-06T13:26:18.805Z",
+      "summary": "Evento 12",
+      "description": "Descripción prolongada del evento 1",
       "color": "#F00",
       "creator": {
         "id": 1,
@@ -13,8 +13,8 @@
         "displayName": "Test Test",
         "self": true
       },
-      "start": "2020-05-04T22:43:52.214Z",
-      "end": "2020-05-05T03:43:52.214Z",
+      "start": "2020-05-05T07:43:52.000Z",
+      "end": "2020-05-05T12:43:52.000Z",
       "attendees": [
         {
           "id": 1,
@@ -83,11 +83,6 @@
           "responseStatus": false
         }
       ]
-    },
-    {
-      "id": " ",
-      "title": "clean room",
-      "completed": false
     }
   ]
 }
