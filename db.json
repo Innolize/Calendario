@@ -1,97 +1,29 @@
 {
   "eventos": [
     {
-      "id": 1,
-      "created": "2020-04-26T22:39:50.984Z",
-      "updated": "2020-05-06T13:26:18.805Z",
-      "summary": "Evento 12",
-      "description": "Descripción prolongada del evento 1",
-      "color": "#F00",
+      "created": "2020-05-07T12:52:14.010Z",
+      "updated": "2020-05-07T12:52:14.010Z",
+      "summary": "evento test 2",
+      "description": "Nuevo test",
+      "color": "green",
+      "start": "2020-05-03T04:00:00.000Z",
+      "end": "2020-05-04T10:00:00.000Z",
       "creator": {
         "id": 1,
         "email": "test@test.com",
         "displayName": "Test Test",
         "self": true
       },
-      "start": "2020-05-05T07:43:52.000Z",
-      "end": "2020-05-05T12:43:52.000Z",
-      "attendees": [
-        {
-          "id": 1,
-          "email": "test@test.com",
-          "displayName": "Test Test",
-          "organizer": true,
-          "self": true,
-          "responseStatus": true
-        },
-        {
-          "id": 2,
-          "email": "test2@test.com",
-          "displayName": "Test2 Test",
-          "organizer": false,
-          "self": false,
-          "responseStatus": false
-        },
-        {
-          "id": 3,
-          "email": "test3@test.com",
-          "displayName": "Test3 Test",
-          "organizer": false,
-          "self": false,
-          "responseStatus": null
-        }
-      ]
+      "id": 2
     },
     {
-      "id": 2,
-      "created": "2020-05-26T22:39:50.984Z",
-      "updated": "2020-04-26T22:39:50.984Z",
-      "summary": "Evento 2",
-      "description": "Descripción prolongada del evento 2",
-      "color": "#0F0",
-      "creator": {
-        "id": 2,
-        "email": "test2@test.com",
-        "displayName": "Test2 Test",
-        "self": false
-      },
-      "start": "2020-05-08T22:43:52.214Z",
-      "end": "2020-04-27T23:43:52.214Z",
-      "attendees": [
-        {
-          "id": 1,
-          "email": "test@test.com",
-          "displayName": "Test Test",
-          "organizer": false,
-          "self": false,
-          "responseStatus": true
-        },
-        {
-          "id": 2,
-          "email": "test2@test.com",
-          "displayName": "Test2 Test",
-          "organizer": true,
-          "self": false,
-          "responseStatus": true
-        },
-        {
-          "id": 3,
-          "email": "test3@test.com",
-          "displayName": "Test3 Test",
-          "organizer": false,
-          "self": false,
-          "responseStatus": false
-        }
-      ]
-    },
-    {
-      "created": "2020-05-06T14:14:52.165Z",
-      "updated": "2020-05-06T14:14:52.165Z",
-      "summary": "saturno",
-      "description": "planetas",
-      "color": "blue",
-      "start": "2020-06-05T13:30:00.000Z",
-      "end": "2020-06-05T18:00:00.000Z",
+      "created": "2020-05-07T13:16:03.990Z",
+      "updated": "2020-05-07T13:16:03.990Z",
+      "summary": "",
+      "description": "",
+      "color": "yellow",
+      "start": "2020-05-05T15:00:00.000Z",
+      "end": "2020-05-05T19:00:00.000Z",
       "creator": {
         "id": 1,
         "email": "test@test.com",
@@ -99,6 +31,22 @@
         "self": true
       },
       "id": 3
+    },
+    {
+      "created": "2020-05-07T13:23:38.926Z",
+      "updated": "2020-05-07T13:27:43.609Z",
+      "summary": "dinosaurios",
+      "description": "rawr",
+      "color": "blue",
+      "start": "2020-05-06T06:00:00.000Z",
+      "end": "2020-05-07T10:00:00.000Z",
+      "creator": {
+        "id": 1,
+        "email": "test@test.com",
+        "displayName": "Test Test",
+        "self": true
+      },
+      "id": 4
     }
   ]
 }

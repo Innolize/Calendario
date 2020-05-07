@@ -2,14 +2,13 @@ import { crearCalendarioSemanal } from "./src/UI/calendario-semanal.js"
 import { crearBotonesTipoDeCalendario, creaBotonFDS } from "./src/UI/botones-interfaz.js"
 import { creaInterfazCalendarioMensual } from "./src/UI/calendario-mensual.js"
 import { mostrarRespuestaAPISemanal, obtenerEventos } from "./src/service/manejador-eventos.js"
-import { calcularDiferenciaHoras } from "./src/utilidades/utilidades.js"
+import { eliminarContenidoTabla } from "./src/utilidades/utilidades.js"
 import { verificarSiContieneData } from "./src/UI/modal/mostrar-info-evento.js"
 import { botonCrearEvento } from "./src/UI/botones-interfaz.js"
 import { modalCrearEvento } from "./src/UI/modal/crear-evento.js"
 
 async function iniciar() {
     debugger
-    // fetchPost()
     const eventos = await obtenerEventos()
     creaBotonFDS()
     crearBotonesTipoDeCalendario()
@@ -17,6 +16,8 @@ async function iniciar() {
     botonCrearEvento()
     seleccionarCalendario(creaInterfazCalendarioMensual, crearCalendarioSemanal, modalCrearEvento)
     mostrarRespuestaAPISemanal(eventos)
+    crearBotonHacemeClick()
+    botonEliminarContenidoTabla()
 
 }
 
@@ -24,7 +25,7 @@ function seleccionarCalendario(funcionMensual, funcionSemanal) {
     $("#calendario-mensual").click(() => {
         funcionMensual()
     })
-    
+
     $("#calendario-semanal").click(() => {
         funcionSemanal()
         mostrarRespuestaAPISemanal(fakeData)
@@ -41,16 +42,23 @@ function seleccionarCalendario(funcionMensual, funcionSemanal) {
     })
 }
 iniciar();
+function crearBotonHacemeClick() {
+    const button = document.createElement("button")
+    button.textContent = "haceme click"
+    button.id = "haceme-click"
+    document.querySelector("#tipo-calendario").appendChild(button)
+    $("#haceme-click").click(async () => {
+        const eventos = await obtenerEventos()
+        mostrarRespuestaAPISemanal(eventos)
+    })
+}
 
-function fetchPost() {
-    fetch("http://localhost:3000/posts/1", {
-        method: "PATCH",
-        body: JSON.stringify({
-            "description": "Descripcion corta del evento 23"
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-
+function botonEliminarContenidoTabla() {
+    const button = document.createElement("button")
+    button.id = "eliminar"
+    button.textContent = "eliminar"
+    document.querySelector("#tipo-calendario").appendChild(button)
+    $("#eliminar").click(() => {
+        eliminarContenidoTabla()
     })
 }

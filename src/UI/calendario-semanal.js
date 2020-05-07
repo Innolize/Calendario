@@ -45,6 +45,7 @@ export function crearCalendarioSemanal() {
                 nuevoCuadro.classList = `cuadro-${elemento}`
                 nuevoCuadro.dataset.hora = `${agregarCeros(i, 2)}`
                 nuevoCuadro.dataset.dia = `${agregarCeros(numeroDia + j, 2)}`
+                nuevoCuadro.dataset.mes = `${agregarCeros(5, 2)}`
                 document.querySelector(`#fila-tabla-${i + 1}`).appendChild(nuevoCuadro)
             })
         }

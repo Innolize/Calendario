@@ -1,7 +1,7 @@
-import { obtenerAnio, obtenerMes, obtenerDia, obtenerHora, calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
+import {calcularDiferenciaHoras, agregarCeros } from "../utilidades/utilidades.js"
 
 export async function obtenerEventos() {
-    const r = await fetch("../../data/fake-data1.json")
+    const r = await fetch(`http://localhost:3000/eventos`)
     const rJSON = await r.json()
     return rJSON
 }
@@ -44,7 +44,7 @@ export function mostrarRespuestaAPISemanal(fakeData) {
 
 
         function mostrarDuracionEvento(classData, diferenciaHoras) {
-
+            debugger
             let fecha = new Date(`${classData.start}`)
             for (let i = 0; i < diferenciaHoras; i++) {
                 console.log(fecha)
@@ -52,9 +52,10 @@ export function mostrarRespuestaAPISemanal(fakeData) {
                 console.log(fecha)
                 let dia = agregarCeros(fecha.getDate(), 2)
                 let hora = agregarCeros(fecha.getHours(), 2)
+                let mes = agregarCeros(fecha.getMonth() + 1, 2)
                 let color = classData.color
                 let id = classData.id
-                const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
+                const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}'][data-mes='${mes}']`)
 
                 const div = document.createElement("div")
                 div.style.backgroundColor = `${color}`

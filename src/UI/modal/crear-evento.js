@@ -103,7 +103,11 @@ export function modalCrearEvento() {
         const termina = obtenerFecha(terminaFecha, terminaHora)
 
         function obtenerFecha(comienzaFecha, comienzaHora) {
-            let fecha = new Date(`${comienzaFecha} ${comienzaHora}`)
+            let fechaRearmada = `${comienzaFecha.split("/")[1]}/${comienzaFecha.split("/")[0]}/${comienzaFecha.split("/")[2]}`
+            
+            
+            
+            let fecha = new Date(`${fechaRearmada} ${comienzaHora}`)
             return fecha
         }
         debugger

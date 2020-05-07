@@ -1,7 +1,6 @@
 import { modificarSiguiente } from "../botones-interfaz.js"
 
 export function modalModificarEvento(evento) {
-    debugger
     const header = document.querySelector(".modal-title")
     header.textContent = `${evento.summary}`
 
@@ -26,15 +25,16 @@ export function modalModificarEvento(evento) {
     contenedorDescripcion.appendChild(labelDescripcion)
     contenedorDescripcion.appendChild(inputDescripcion)
 
+    const dateComienza = new Date(`${evento.start}`)
     const contenedorComienza = document.createElement("div")
     const labelComienzaFecha = document.createElement("label")
     const labelComienzaHora = document.createElement("label")
     labelComienzaFecha.textContent = "Comienza:"
     labelComienzaHora.textContent = "a las:"
     const inputComienzaFecha = document.createElement("input")
-    inputComienzaFecha.value = `${evento.start.split("T")[0]}`
+    inputComienzaFecha.value = `${dateComienza.getDate()}/${dateComienza.getMonth()+1}/${dateComienza.getFullYear()}`
     const inputComienzaHora = document.createElement("input")
-    inputComienzaHora.value = `${evento.start.split("T")[1].split(".")[0]}`
+    inputComienzaHora.value = `${dateComienza.getHours()}:${dateComienza.getMinutes()}`
     inputComienzaHora.id = "crear-evento-comienza-hora"
     inputComienzaFecha.id = "crear-evento-comienza-fecha"
     inputComienzaHora.setAttribute("placeholder", "HH:MM")
@@ -44,6 +44,9 @@ export function modalModificarEvento(evento) {
     contenedorComienza.appendChild(labelComienzaHora)
     contenedorComienza.appendChild(inputComienzaHora)
 
+
+    debugger
+    const dateTermina = new Date(`${evento.end}`)
     const contenedorTermina = document.createElement("div")
     const labelTerminaFecha = document.createElement("label")
     labelTerminaFecha.textContent = "Termina:"
@@ -53,8 +56,8 @@ export function modalModificarEvento(evento) {
     inputTerminaFecha.id = "crear-evento-termina-fecha"
     const inputTerminaHora = document.createElement("input")
     inputTerminaHora.id = "crear-evento-termina-hora"
-    inputTerminaFecha.value = `${evento.end.split("T")[0]}`
-    inputTerminaHora.value = `${evento.end.split("T")[1].split(".")[0]}`
+    inputTerminaFecha.value = `${dateTermina.getDate()}/${dateTermina.getMonth()+1}/${dateTermina.getFullYear()}`
+    inputTerminaHora.value = `${dateTermina.getHours()}:${('0' + dateTermina.getMinutes()).slice(-2)}`
     inputTerminaFecha.setAttribute("placeholder", " ej: 20/5/2020")
     inputTerminaHora.setAttribute("placeholder", "HH:MM")
     contenedorTermina.appendChild(labelTerminaFecha)

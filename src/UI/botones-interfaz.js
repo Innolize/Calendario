@@ -1,6 +1,6 @@
 import { obtenerUnEvento, fetchModificarEvento } from "../service/manejador-eventos.js"
 import { modalModificarEvento } from "./modal/modificar-evento.js"
-import {fetchEliminarEvento} from "../service/manejador-eventos.js"
+import { fetchEliminarEvento } from "../service/manejador-eventos.js"
 export function crearBotonesTipoDeCalendario() {
 
     const botonSemanal = document.createElement("button")
@@ -136,11 +136,12 @@ export function modificarSiguiente(idEvento, padre) {
         const comienzaHora = document.querySelector("#crear-evento-comienza-hora").value
         const terminaFecha = document.querySelector("#crear-evento-termina-fecha").value
         const terminaHora = document.querySelector("#crear-evento-termina-hora").value
-        const comienza = obtenerFecha(comienzaFecha, comienzaHora)
-        const termina = obtenerFecha(terminaFecha, terminaHora)
+        const comienza = rearmarFecha(comienzaFecha, comienzaHora)
+        const termina = rearmarFecha(terminaFecha, terminaHora)
 
-        function obtenerFecha(comienzaFecha, comienzaHora) {
-            let fecha = new Date(`${comienzaFecha} ${comienzaHora}`)
+        function rearmarFecha(comienzaFecha, comienzaHora) {
+            let fechaRearmada = `${comienzaFecha.split("/")[1]}/${comienzaFecha.split("/")[0]}/${comienzaFecha.split("/")[2]}`
+            let fecha = new Date(`${fechaRearmada} ${comienzaHora}`)
             return fecha
         }
         debugger

@@ -55,35 +55,39 @@ function modalDatosDeEvento(evento) {
     labelDescripcion.textContent = `Descripcion: ${evento.description}`
     contenedorDescripcion.appendChild(labelDescripcion)
 
+    let dateComienza = new Date(evento.start)
     const contenedorComienza = document.createElement("div")
     const labelComienza = document.createElement("label")
-    labelComienza.textContent = `Comienza: ${evento.start.split("T")[0]} ${evento.start.split("T")[1].split(".")[0]}`
+    labelComienza.textContent = `Comienza: ${dateComienza.getDate()}/${dateComienza.getMonth()+1}/${dateComienza.getFullYear()} ${dateComienza.getHours()}:${dateComienza.getMinutes()}`
     contenedorComienza.appendChild(labelComienza)
 
+    let dateTermina = new Date(evento.end)
     const contenedorTermina = document.createElement("div")
     const labelTermina = document.createElement("label")
-    labelTermina.textContent = `Termina: ${evento.end.split("T")[0]} ${evento.end.split("T")[1].split(".")[0]}`
+    labelTermina.textContent = `Termina: ${dateTermina.getDate()}/${dateTermina.getMonth()+1}/${dateTermina.getFullYear()} ${dateTermina.getHours()}:${('0'+ dateTermina.getMinutes()).slice(-2)}`
     contenedorTermina.appendChild(labelTermina)
 
-    const contenedorParaticipantes = document.createElement("div")
-    const ul = document.createElement("ul")
-    ul.classList = "list-group-flush"
-    evento.attendees.forEach((participante) => {
-        const liParticipante = document.createElement("li")
-        const respuestaParticipante = document.createElement("i")
-        respuestaParticipante.classList = obtenerImagenParticipante(participante.responseStatus)
-        liParticipante.classList = "list-group-item"
-        liParticipante.innerText = participante.displayName
-        ul.appendChild(liParticipante)
-        liParticipante.appendChild(respuestaParticipante)
-    })
-    contenedorParaticipantes.appendChild(ul)
-
+    if (!evento.attendees == null) {
+        const contenedorParaticipantes = document.createElement("div")
+        const ul = document.createElement("ul")
+        ul.classList = "list-group-flush"
+        evento.attendees.forEach((participante) => {
+            const liParticipante = document.createElement("li")
+            const respuestaParticipante = document.createElement("i")
+            respuestaParticipante.classList = obtenerImagenParticipante(participante.responseStatus)
+            liParticipante.classList = "list-group-item"
+            liParticipante.innerText = participante.displayName
+            ul.appendChild(liParticipante)
+            liParticipante.appendChild(respuestaParticipante)
+        })
+        contenedorParaticipantes.appendChild(ul)
+        body.appendChild(contenedorParaticipantes)
+    }
     body.appendChild(contenedorTitulo)
     body.appendChild(contenedorDescripcion)
     body.appendChild(contenedorComienza)
     body.appendChild(contenedorTermina)
-    body.appendChild(contenedorParaticipantes)
+
 
     crearBotonEliminar(evento, footer)
     crearBotonModificar(evento, footer)
