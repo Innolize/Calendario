@@ -1,4 +1,4 @@
-import { obtenerDomingo, agregarCeros } from "../utilidades/utilidades.js"
+import { obtenerDomingo, agregarCeros, calcularDiferenciaHoras } from "../utilidades/utilidades.js"
 
 export function crearCalendarioSemanal() {
     const trDiaSemanas = document.querySelector("#dias-semana")
@@ -53,5 +53,64 @@ export function crearCalendarioSemanal() {
     }
     function borrarContenido(elemento) {
         elemento.innerHTML = ""
+    }
+}
+
+export function mostrarRespuestaAPISemanal(fakeData) {
+    let data = fakeData
+    data.forEach((elemento) => {
+        console.log(elemento)
+        marcarInicioAFinEvento(elemento)
+    })
+
+    function marcarInicioAFinEvento(classData) {
+        mostrarTituloEvento(classData)
+        function mostrarTituloEvento(classData) {
+            let fecha = new Date(`${classData.start}`)
+
+            let dia = agregarCeros(fecha.getDate(), 2)
+            let hora = agregarCeros(fecha.getHours(), 2)
+            let color = classData.color
+            let titulo = classData.summary
+            let id = classData.id
+            const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
+
+            const div = document.createElement("div")
+            div.style.backgroundColor = `${color}`
+            div.className = "col"
+            div.style.overflow = "hidden"
+            div.innerText = titulo
+            div.dataset.id = id
+            cuadroSeleccionado.appendChild(div)
+
+        }
+
+        let diferenciaHoras = calcularDiferenciaHoras(classData.start, classData.end)
+
+        mostrarDuracionEvento(classData, diferenciaHoras)
+
+
+        function mostrarDuracionEvento(classData, diferenciaHoras) {
+            let fecha = new Date(`${classData.start}`)
+            for (let i = 0; i < diferenciaHoras; i++) {
+                console.log(fecha)
+                fecha.setHours(fecha.getHours() + 1)
+                console.log(fecha)
+                let dia = agregarCeros(fecha.getDate(), 2)
+                let hora = agregarCeros(fecha.getHours(), 2)
+                let mes = agregarCeros(fecha.getMonth() + 1, 2)
+                let color = classData.color
+                let id = classData.id
+                const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}'][data-mes='${mes}']`)
+
+                const div = document.createElement("div")
+                div.style.backgroundColor = `${color}`
+                div.className = "col"
+                div.style.overflow = "hidden"
+                div.innerText = "_ "
+                div.dataset.id = id
+                cuadroSeleccionado.appendChild(div)
+            }
+        }
     }
 }

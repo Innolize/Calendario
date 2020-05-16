@@ -1,6 +1,9 @@
-import { obtenerUnEvento, fetchModificarEvento } from "../service/manejador-eventos.js"
-import { modalModificarEvento } from "./modal/modificar-evento.js"
-import { fetchEliminarEvento } from "../service/manejador-eventos.js"
+import { modalModificarEvento, obtenerDatosModificarEvento } from "./modal/modificar-evento.js"
+import { fetchEliminarEvento, obtenerEventoEspecifico, fetchModificarEvento,} from "../service/manejador-eventos.js"
+import {obtenerIdEvento, obtenerIdModificarSiguiente} from "../utilidades/utilidades.js"
+
+
+
 export function crearBotonesTipoDeCalendario() {
 
     const botonSemanal = document.createElement("button")
@@ -8,12 +11,6 @@ export function crearBotonesTipoDeCalendario() {
     botonSemanal.className = "btn btn-secondary"
     botonSemanal.textContent = "Calendario Semanal"
     document.querySelector("#tipo-calendario").appendChild(botonSemanal)
-
-    const botonMensual = document.createElement("button")
-    botonMensual.id = "calendario-mensual"
-    botonMensual.className = "btn btn-secondary"
-    botonMensual.textContent = "Calendario Mensual"
-    document.querySelector("#tipo-calendario").appendChild(botonMensual)
 }
 
 export function creaBotonFDS() {
@@ -57,14 +54,17 @@ export function creaBotonFDS() {
     })
 }
 
-export function botonCrearEvento() {
+export function botonCrearEvento(callbackFunction) {
     const button = document.createElement("button")
     button.textContent = "Crear nuevo evento"
     button.id = "crear-evento"
     document.querySelector("#tipo-calendario").appendChild(button)
+    $("#crear-evento").click(() => {
+        callbackFunction()
+    })
 }
 
-export function crearBotonModificar(evento, padre) {
+export function botonModificarEvento(evento, padre) {
     const button = document.createElement("button")
     button.type = "button"
     button.textContent = "Modificar"
@@ -76,17 +76,19 @@ export function crearBotonModificar(evento, padre) {
         button.classList.add("disabled")
     }
     padre.appendChild(button)
-    $("#boton-modificar").click(() => {
-        const id = document.querySelector("#boton-modificar").getAttribute("data-evento-id")
-        obtenerDatosAModificar(id)
-        async function obtenerDatosAModificar(id) {
-            let evento = await obtenerUnEvento(id)
-            modalModificarEvento(evento)
 
-        }
+    $("#boton-modificar").click(async () => {
+        let id = obtenerIdEvento()
+        let evento = await obtenerEventoEspecifico(id)
+        modalModificarEvento(evento)
     })
+
 }
-export function crearBotonEliminar(evento, padre) {
+
+
+
+
+export function botonEliminarEvento(evento, padre) {
     const button = document.createElement("button")
     button.type = "button"
     button.textContent = "Eliminar"
@@ -120,57 +122,19 @@ export function crearBotonCerrar(padre) {
     })
 }
 
-export function modificarSiguiente(idEvento, padre) {
+export function botonModificarSiguiente(idEvento, padre) {
     debugger
     const botonSiguiente = document.createElement("button")
     botonSiguiente.textContent = "Siguiente"
     botonSiguiente.id = "modificar-siguiente"
+    botonSiguiente.dataset.idEvento = idEvento
     padre.appendChild(botonSiguiente)
 
-    $("#modificar-siguiente").click(() => {
-        debugger
-        const nombreDelEvento = document.querySelector("#crear-evento-titulo").value
-        const descripcion = document.querySelector("#crear-evento-descripcion").value
-        const colorEvento = document.querySelector("#crear-evento-color").value
-        const comienzaFecha = document.querySelector("#crear-evento-comienza-fecha").value
-        const comienzaHora = document.querySelector("#crear-evento-comienza-hora").value
-        const terminaFecha = document.querySelector("#crear-evento-termina-fecha").value
-        const terminaHora = document.querySelector("#crear-evento-termina-hora").value
-        const comienza = rearmarFecha(comienzaFecha, comienzaHora)
-        const termina = rearmarFecha(terminaFecha, terminaHora)
-
-        function rearmarFecha(comienzaFecha, comienzaHora) {
-            let fechaRearmada = `${comienzaFecha.split("/")[1]}/${comienzaFecha.split("/")[0]}/${comienzaFecha.split("/")[2]}`
-            let fecha = new Date(`${fechaRearmada} ${comienzaHora}`)
-            return fecha
-        }
-        debugger
-
-        let eventoModificado = {
-            updated: new Date(),
-            summary: nombreDelEvento,
-            description: descripcion,
-            color: colorEvento,
-            start: comienza,
-            end: termina,
-
-        }
-
-        fetchModificarEvento(idEvento, eventoModificado)
-
-
-
-
-
-
-
-
-
-
-
+    $("#modificar-siguiente").click(async () => {
+        let datosModificados = obtenerDatosModificarEvento()
+        let idEvento = obtenerIdModificarSiguiente()
+        fetchModificarEvento(idEvento, datosModificados)
     })
-
-
-
 }
+
 

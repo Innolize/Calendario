@@ -20,7 +20,6 @@ export function obtenerDomingo() {
 }
 
 export function calcularDiferenciaHoras(primeraFecha, segundaFecha) {
-    debugger
     let fechaUno = new Date(primeraFecha)
     let fechaDos = new Date(segundaFecha)
     //ej fechas = "mes/dia/año hora:"
@@ -32,4 +31,14 @@ export function calcularDiferenciaHoras(primeraFecha, segundaFecha) {
 
 export function eliminarContenidoTabla() {
     document.querySelectorAll("[data-id").forEach((elemento) => { elemento.remove() })
+}
+
+export function obtenerIdEvento() {
+    const id = document.querySelector("#boton-modificar").getAttribute("data-evento-id")
+    return id
+}
+
+export function obtenerIdModificarSiguiente() {
+    let id = document.querySelector("#modificar-siguiente").getAttribute("data-id-evento")
+    return id
 }
