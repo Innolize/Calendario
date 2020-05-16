@@ -1,56 +1,87 @@
-import { crearCalendarioSemanal } from "./src/UI/calendario-semanal.js"
-import { crearBotonesTipoDeCalendario, creaBotonFDS } from "./src/UI/botones-interfaz.js"
-import { creaInterfazCalendarioMensual } from "./src/UI/calendario-mensual.js"
-import { mostrarRespuestaAPISemanal, obtenerEventos } from "./src/service/manejador-eventos.js"
-import { calcularDiferenciaHoras } from "./src/utilidades/utilidades.js"
-import { verificarSiContieneData } from "./src/UI/modal/mostrar-info-evento.js"
-import { botonCrearEvento } from "./src/UI/botones-interfaz.js"
-import { modalCrearEvento } from "./src/UI/modal/crear-evento.js"
+import { crearCalendarioSemanal, mostrarRespuestaAPISemanal } from "./src/UI/calendario-semanal.js"
+
+
+import {
+    obtenerEventos,
+    fetchModificarEvento,
+    obtenerEventoEspecifico
+} from "./src/service/manejador-eventos.js"
+
+import {
+    eliminarContenidoTabla,
+    obtenerIdEvento,
+    obtenerIdModificarSiguiente
+} from "./src/utilidades/utilidades.js"
+
+import {
+    verificarSiContieneData,
+    mostrarEventoClickeado
+} from "./src/UI/modal/mostrar-info-evento.js"
+
+import { botonCrearEvento, botonModificarEvento, botonEliminarEvento, creaBotonFDS } from "./src/UI/botones-interfaz.js"
+
+import {
+    muestraModalCrearEvento,
+    creaEvento
+} from "./src/UI/modal/crear-evento.js"
 
 async function iniciar() {
-    debugger
-    // fetchPost()
-    const eventos = await obtenerEventos()
     creaBotonFDS()
-    crearBotonesTipoDeCalendario()
     crearCalendarioSemanal();
-    botonCrearEvento()
-    seleccionarCalendario(creaInterfazCalendarioMensual, crearCalendarioSemanal, modalCrearEvento)
+    const eventos = await obtenerEventos()
     mostrarRespuestaAPISemanal(eventos)
+    botonCrearEvento(creandoEvento)
 
-}
 
-function seleccionarCalendario(funcionMensual, funcionSemanal) {
-    $("#calendario-mensual").click(() => {
-        funcionMensual()
-    })
-    
-    $("#calendario-semanal").click(() => {
-        funcionSemanal()
-        mostrarRespuestaAPISemanal(fakeData)
-    })
 
     $("td").click((e) => {
-        verificarSiContieneData(e)
+        verificarSiContieneData(e, mostrarEventoClickeado)
     })
 
-    $("#crear-evento").click(() => {
-        console.log("asd")
-        debugger
-        modalCrearEvento()
-    })
+    function creandoEvento() {
+        muestraModalCrearEvento(creaEvento)
+    }
+
 }
 iniciar();
 
-function fetchPost() {
-    fetch("http://localhost:3000/posts/1", {
-        method: "PATCH",
-        body: JSON.stringify({
-            "description": "Descripcion corta del evento 23"
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-
-    })
+function manejadorCrearEvento() {
+    muestraModalCrearEvento(creaEvento)
 }
+
+// eliminarContenidoTabla()
+// const eventos = await obtenerEventos()
+// mostrarRespuestaAPISemanal(eventos)
+
+
+$("#crear-evento").click(() => {
+    manejadorCrearEvento()
+})
+
+
+
+
+
+
+
+
+// function crearBotonHacemeClick() {
+//     const button = document.createElement("button")
+//     button.textContent = "haceme click"
+//     button.id = "haceme-click"
+//     document.querySelector("#tipo-calendario").appendChild(button)
+//     $("#haceme-click").click(async () => {
+//         const eventos = await obtenerEventos()
+//         mostrarRespuestaAPISemanal(eventos)
+//     })
+// }
+
+// function botonEliminarContenidoTabla() {
+//     const button = document.createElement("button")
+//     button.id = "eliminar"
+//     button.textContent = "eliminar"
+//     document.querySelector("#tipo-calendario").appendChild(button)
+//     $("#eliminar").click(() => {
+//         eliminarContenidoTabla()
+//     })
+// }

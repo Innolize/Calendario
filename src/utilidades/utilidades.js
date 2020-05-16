@@ -19,49 +19,26 @@ export function obtenerDomingo() {
     }
 }
 
-export function obtenerAnio(data) {
-    const anio = data.split("T")[0].split("-")[0]
-    return anio
-}
-export function obtenerMes(data) {
-    const mes = data.split("T")[0].split("-")[1]
-    return mes
-}
-export function obtenerDia(data) {
-    const dia = data.split("T")[0].split("-")[2]
-    return dia
-}
-
-export function obtenerHora(data) {
-    const hora = data.split("T")[1].split(":")[0]
-    return hora
-}
-export function obtenerMinutos(data) {
-    const minutos = data.split("T")[1].split(":")[1]
-    return minutos
-}
-
 export function calcularDiferenciaHoras(primeraFecha, segundaFecha) {
-    const valor1 = {
-        anio: obtenerAnio(primeraFecha),
-        mes: obtenerMes(primeraFecha),
-        dia: obtenerDia(primeraFecha),
-        hora: obtenerHora(primeraFecha)
-    }
-    const valor2 = {
-        anio: obtenerAnio(segundaFecha),
-        mes: obtenerMes(segundaFecha),
-        dia: obtenerDia(segundaFecha),
-        hora: obtenerHora(segundaFecha),
-    }
-
-
-    let primerValor = new Date(`${valor1.mes}/${valor1.dia}/${valor1.anio} ${valor1.hora}:`)
-    let segundoValor = new Date(`${valor2.mes}/${valor2.dia}/${valor2.anio} ${valor2.hora}:`)
-
+    let fechaUno = new Date(primeraFecha)
+    let fechaDos = new Date(segundaFecha)
     //ej fechas = "mes/dia/año hora:"
 
-    let diferencia = segundoValor.getTime() - primerValor.getTime()
+    let diferencia = fechaDos - fechaUno
     let diferenciaEnHoras = diferencia / (1000 * 3600)
     return Math.floor(diferenciaEnHoras)
+}
+
+export function eliminarContenidoTabla() {
+    document.querySelectorAll("[data-id").forEach((elemento) => { elemento.remove() })
+}
+
+export function obtenerIdEvento() {
+    const id = document.querySelector("#boton-modificar").getAttribute("data-evento-id")
+    return id
+}
+
+export function obtenerIdModificarSiguiente() {
+    let id = document.querySelector("#modificar-siguiente").getAttribute("data-id-evento")
+    return id
 }
