@@ -28,6 +28,7 @@ export function crearCalendarioSemanal() {
     crearHorariosSemanales(obtenerDomingo())
     function crearHorariosSemanales(fecha) {
         let numeroDia = fecha.getDate()
+        let numeroMes = fecha.getMonth() + 1
         const contenidoTabla = document.querySelector("#dias-calendario")
         const HORAS_DEL_DIA = 24
         const DIAS_DE_LA_SEMANA = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
@@ -45,7 +46,7 @@ export function crearCalendarioSemanal() {
                 nuevoCuadro.classList = `cuadro-${elemento}`
                 nuevoCuadro.dataset.hora = `${agregarCeros(i, 2)}`
                 nuevoCuadro.dataset.dia = `${agregarCeros(numeroDia + j, 2)}`
-                nuevoCuadro.dataset.mes = `${agregarCeros(5, 2)}`
+                nuevoCuadro.dataset.mes = `${agregarCeros(numeroMes, 2)}`
                 document.querySelector(`#fila-tabla-${i + 1}`).appendChild(nuevoCuadro)
             })
         }
@@ -75,14 +76,17 @@ export function mostrarRespuestaAPISemanal(fakeData) {
             let id = classData.id
             const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}']`)
 
+            if (cuadroSeleccionado.querySelector('div') && !cuadroSeleccionado.classList.contains('dividido')) {
+                cuadroSeleccionado.classList.add('dividido')
+            }
+
             const div = document.createElement("div")
             div.style.backgroundColor = `${color}`
-            div.className = "col"
+            div.classList.add("col", "cuadro-evento-titulo")
             div.style.overflow = "hidden"
             div.innerText = titulo
             div.dataset.id = id
             cuadroSeleccionado.appendChild(div)
-
         }
 
         let diferenciaHoras = calcularDiferenciaHoras(classData.start, classData.end)
@@ -99,13 +103,18 @@ export function mostrarRespuestaAPISemanal(fakeData) {
                 let dia = agregarCeros(fecha.getDate(), 2)
                 let hora = agregarCeros(fecha.getHours(), 2)
                 let mes = agregarCeros(fecha.getMonth() + 1, 2)
+                console.log(mes)
                 let color = classData.color
                 let id = classData.id
                 const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}'][data-mes='${mes}']`)
 
+                if (cuadroSeleccionado.querySelector('div') && !cuadroSeleccionado.classList.contains('dividido')) {
+                    cuadroSeleccionado.classList.add('dividido')
+                }
+
                 const div = document.createElement("div")
                 div.style.backgroundColor = `${color}`
-                div.className = "col"
+                div.classList.add("col", "cuadro-evento")
                 div.style.overflow = "hidden"
                 div.innerText = "_ "
                 div.dataset.id = id

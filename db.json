@@ -1,3 +1,52 @@
 {
-  "eventos": []
+  "eventos": [
+    {
+      "created": "2020-06-13T09:16:38.090Z",
+      "updated": "2020-06-13T09:16:38.090Z",
+      "summary": "test",
+      "description": "Test para r/argentina",
+      "color": "#27a8be",
+      "start": "2020-06-13T18:30:00.000Z",
+      "end": "2020-06-13T23:00:00.000Z",
+      "creator": {
+        "id": 1,
+        "email": "test@test.com",
+        "displayName": "Test Test",
+        "self": true
+      },
+      "id": 1
+    },
+    {
+      "created": "2020-06-13T09:44:53.390Z",
+      "updated": "2020-06-13T09:44:53.390Z",
+      "summary": "test3",
+      "description": "asd",
+      "color": "#baa0a0",
+      "start": "2020-06-13T18:00:00.000Z",
+      "end": "2020-06-13T23:00:00.000Z",
+      "creator": {
+        "id": 1,
+        "email": "test@test.com",
+        "displayName": "Test Test",
+        "self": true
+      },
+      "id": 3
+    },
+    {
+      "created": "2020-06-13T10:49:20.680Z",
+      "updated": "2020-06-13T10:49:20.680Z",
+      "summary": "test",
+      "description": "Test para r/argentina",
+      "color": "#dde015",
+      "start": "2020-06-13T18:00:00.000Z",
+      "end": "2020-06-13T23:00:00.000Z",
+      "creator": {
+        "id": 1,
+        "email": "test@test.com",
+        "displayName": "Test Test",
+        "self": true
+      },
+      "id": 4
+    }
+  ]
 }

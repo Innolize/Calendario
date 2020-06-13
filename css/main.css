@@ -36,3 +36,23 @@ tr td{
 i{
     padding-left: 5px;
 }
+
+.dividido{
+    display:flex
+}
+
+.cuadro-evento{
+    border-left-style: solid;
+    border-left-width: 3px;
+    border-right-style: solid;
+    border-right-width: 3px;
+}
+
+.cuadro-evento-titulo{
+    border-top-style: solid;
+    border-top-width: 3px;
+    border-left-style: solid;
+    border-left-width: 3px;
+    border-right-style: solid;
+    border-right-width: 3px;
+}

@@ -69,12 +69,11 @@ export function muestraModalCrearEvento(callbackFunction) {
         const labelColor = document.createElement("label")
         labelColor.textContent = "Selecciona color:"
         const inputColor = document.createElement("input")
+        inputColor.type = "color"
         inputColor.setAttribute("placeholder", `ej: "red"o "#00FFFF"`)
         inputColor.id = "crear-evento-color"
         contenedorColor.appendChild(labelColor)
         contenedorColor.appendChild(inputColor)
-
-
 
         body.appendChild(contenedorTitulo)
         body.appendChild(contenedorDescripcion)
@@ -82,13 +81,6 @@ export function muestraModalCrearEvento(callbackFunction) {
         body.appendChild(contenedorTermina)
         body.appendChild(contenedorColor)
     }
-
-
-
-
-
-
-
 
     function modalCrearFooter(callbackFunction) {
         const footer = document.querySelector(".modal-footer")

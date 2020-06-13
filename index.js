@@ -26,13 +26,11 @@ import {
 } from "./src/UI/modal/crear-evento.js"
 
 async function iniciar() {
+    botonCrearEvento(creandoEvento)
     creaBotonFDS()
     crearCalendarioSemanal();
     const eventos = await obtenerEventos()
     mostrarRespuestaAPISemanal(eventos)
-    botonCrearEvento(creandoEvento)
-
-
 
     $("td").click((e) => {
         verificarSiContieneData(e, mostrarEventoClickeado)
