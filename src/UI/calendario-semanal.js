@@ -60,7 +60,6 @@ export function crearCalendarioSemanal() {
 export function mostrarRespuestaAPISemanal(fakeData) {
     let data = fakeData
     data.forEach((elemento) => {
-        console.log(elemento)
         marcarInicioAFinEvento(elemento)
     })
 
@@ -97,13 +96,10 @@ export function mostrarRespuestaAPISemanal(fakeData) {
         function mostrarDuracionEvento(classData, diferenciaHoras) {
             let fecha = new Date(`${classData.start}`)
             for (let i = 0; i < diferenciaHoras; i++) {
-                console.log(fecha)
                 fecha.setHours(fecha.getHours() + 1)
-                console.log(fecha)
                 let dia = agregarCeros(fecha.getDate(), 2)
                 let hora = agregarCeros(fecha.getHours(), 2)
                 let mes = agregarCeros(fecha.getMonth() + 1, 2)
-                console.log(mes)
                 let color = classData.color
                 let id = classData.id
                 const cuadroSeleccionado = document.querySelector(`[data-dia='${dia}'][data-hora='${hora}'][data-mes='${mes}']`)

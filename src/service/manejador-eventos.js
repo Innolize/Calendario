@@ -4,6 +4,12 @@ export async function obtenerEventos() {
     return rJSON
 }
 
+export async function obtenerUsuarios() {
+    const r = await fetch(`http://localhost:3000/usuarios`)
+    const rJSON = await r.json()
+    return rJSON
+}
+
 
 
 export async function obtenerEventoEspecifico(id) {

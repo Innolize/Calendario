@@ -49,10 +49,12 @@ i{
 }
 
 .cuadro-evento-titulo{
-    border-top-style: solid;
-    border-top-width: 3px;
     border-left-style: solid;
     border-left-width: 3px;
     border-right-style: solid;
     border-right-width: 3px;
+}
+
+.usuario{
+    list-style: none;
 }

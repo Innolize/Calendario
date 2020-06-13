@@ -1,4 +1,6 @@
-import { fetchCrearEvento } from "../../service/manejador-eventos.js"
+import { fetchCrearEvento, obtenerUsuarios, obtenerEventos } from "../../service/manejador-eventos.js"
+import { eliminarContenidoTabla } from '../../utilidades/utilidades.js';
+import { mostrarRespuestaAPISemanal } from '../calendario-semanal.js';
 
 export function muestraModalCrearEvento(callbackFunction) {
     modalCrearHeader()
@@ -75,12 +77,45 @@ export function muestraModalCrearEvento(callbackFunction) {
         contenedorColor.appendChild(labelColor)
         contenedorColor.appendChild(inputColor)
 
+        const contenedorUsuarios = document.createElement("div")
+        const UsuariosTitulo = document.createElement("h5")
+        UsuariosTitulo.innerText = "Invitas usuarios?"
+        contenedorUsuarios.appendChild(UsuariosTitulo)
+        const contenedorListaUsuarios = document.createElement("ul")
+        contenedorUsuarios.appendChild(contenedorListaUsuarios)
+
+
+
+        mostrarUsuarios()
+
+        async function mostrarUsuarios() {
+            let test = await obtenerUsuarios()
+            test.map(user => {
+                let usuario = document.createElement("li")
+                usuario.className = "usuario"
+                usuario.innerText = user.nombre
+                contenedorUsuarios.appendChild(usuario)
+                let input = document.createElement("input")
+                input.type = "checkbox"
+                input.dataset.usuario = user.id
+                usuario.appendChild(input)
+            })
+
+
+        }
+
         body.appendChild(contenedorTitulo)
         body.appendChild(contenedorDescripcion)
         body.appendChild(contenedorComienza)
         body.appendChild(contenedorTermina)
         body.appendChild(contenedorColor)
+        body.appendChild(contenedorUsuarios)
     }
+
+
+
+
+
 
     function modalCrearFooter(callbackFunction) {
         const footer = document.querySelector(".modal-footer")
@@ -113,8 +148,22 @@ export function muestraModalCrearEvento(callbackFunction) {
 export function creaEvento() {
     const evento = obtenerDatosCrearEvento()
     fetchCrearEvento(evento)
+    eliminarContenidoTabla()
+    reinicioCalendario()
+    async function reinicioCalendario() {
+        const eventos = await obtenerEventos()
+        mostrarRespuestaAPISemanal(eventos)
+    }
 }
 
+
+function obtenerParticipantes() {
+    debugger
+    const inputParticipantesArray = document.querySelectorAll('.usuario input')
+    const array = Array.from(inputParticipantesArray)
+    let asd = array.filter(input => input.checked === true)
+    return asd.map((usuario) => usuario.dataset.usuario)
+}
 
 export function obtenerDatosCrearEvento() {
     const nombreDelEvento = document.querySelector("#crear-evento-titulo").value
@@ -126,6 +175,7 @@ export function obtenerDatosCrearEvento() {
     const terminaHora = document.querySelector("#crear-evento-termina-hora").value
     const comienza = rearmarFecha(comienzaFecha, comienzaHora)
     const termina = rearmarFecha(terminaFecha, terminaHora)
+    const participantes = obtenerParticipantes()
 
     function rearmarFecha(comienzaFecha, comienzaHora) {
         let fechaRearmada = `${comienzaFecha.split("/")[1]}/${comienzaFecha.split("/")[0]}/${comienzaFecha.split("/")[2]}`
@@ -146,9 +196,16 @@ export function obtenerDatosCrearEvento() {
             email: "test@test.com",
             displayName: "Test Test",
             self: true
+        },
+
+        attendees: {
+            ids: participantes
         }
-
-
     }
+    debugger
+    console.log(evento)
+
+
+
     return evento
 }

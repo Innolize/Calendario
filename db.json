@@ -1,52 +1,30 @@
 {
-  "eventos": [
+  "eventos": [],
+  "usuarios": [
     {
-      "created": "2020-06-13T09:16:38.090Z",
-      "updated": "2020-06-13T09:16:38.090Z",
-      "summary": "test",
-      "description": "Test para r/argentina",
-      "color": "#27a8be",
-      "start": "2020-06-13T18:30:00.000Z",
-      "end": "2020-06-13T23:00:00.000Z",
-      "creator": {
-        "id": 1,
-        "email": "test@test.com",
-        "displayName": "Test Test",
-        "self": true
-      },
-      "id": 1
+      "id": 11,
+      "nombre": "test1",
+      "email": "test11@hotmail.com"
     },
     {
-      "created": "2020-06-13T09:44:53.390Z",
-      "updated": "2020-06-13T09:44:53.390Z",
-      "summary": "test3",
-      "description": "asd",
-      "color": "#baa0a0",
-      "start": "2020-06-13T18:00:00.000Z",
-      "end": "2020-06-13T23:00:00.000Z",
-      "creator": {
-        "id": 1,
-        "email": "test@test.com",
-        "displayName": "Test Test",
-        "self": true
-      },
-      "id": 3
+      "id": 12,
+      "nombre": "test2",
+      "email": "test22@hotmail.com"
     },
     {
-      "created": "2020-06-13T10:49:20.680Z",
-      "updated": "2020-06-13T10:49:20.680Z",
-      "summary": "test",
-      "description": "Test para r/argentina",
-      "color": "#dde015",
-      "start": "2020-06-13T18:00:00.000Z",
-      "end": "2020-06-13T23:00:00.000Z",
-      "creator": {
-        "id": 1,
-        "email": "test@test.com",
-        "displayName": "Test Test",
-        "self": true
-      },
-      "id": 4
+      "id": 13,
+      "nombre": "test3",
+      "email": "test13@hotmail.com"
+    },
+    {
+      "id": 14,
+      "nombre": "test4",
+      "email": "test14@hotmail.com"
+    },
+    {
+      "id": 15,
+      "nombre": "test5",
+      "email": "test5@hotmail.com"
     }
   ]
 }
