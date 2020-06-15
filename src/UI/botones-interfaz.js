@@ -3,6 +3,12 @@ import { fetchEliminarEvento, obtenerEventoEspecifico, fetchModificarEvento, obt
 import { obtenerIdEvento, obtenerIdModificarSiguiente, eliminarContenidoTabla } from "../utilidades/utilidades.js"
 import { mostrarRespuestaAPISemanal } from './calendario-semanal.js';
 
+async function reinicioCalendario() {
+    $("#modal").modal("hide")
+    const eventos = await obtenerEventos()
+    mostrarRespuestaAPISemanal(eventos)
+}
+
 export function crearBotonesTipoDeCalendario() {
 
     const botonSemanal = document.createElement("button")
@@ -78,7 +84,6 @@ export function botonModificarEvento(evento, padre) {
         let id = obtenerIdEvento()
         let evento = await obtenerEventoEspecifico(id)
         modalModificarEvento(evento)
-        $("#modal").modal("hide")
     })
 
 }
@@ -99,13 +104,10 @@ export function botonEliminarEvento(evento, padre) {
     $("#boton-eliminar").click((e) => {
         let id = e.target.getAttribute("data-evento-id")
         fetchEliminarEvento(id)
-        eliminarContenidoTabla()
-        reinicioCalendario()
-        async function reinicioCalendario() {
-            $("#modal").modal("hide")
-            const eventos = await obtenerEventos()
-            mostrarRespuestaAPISemanal(eventos)
-        }
+        setTimeout(function () {
+            eliminarContenidoTabla(),
+                reinicioCalendario()
+        },1000)
     })
 }
 
@@ -133,6 +135,11 @@ export function botonModificarSiguiente(idEvento, padre) {
         let datosModificados = obtenerDatosModificarEvento()
         let idEvento = obtenerIdModificarSiguiente()
         fetchModificarEvento(idEvento, datosModificados)
+        setTimeout(function () {
+            eliminarContenidoTabla(),
+                reinicioCalendario()
+        },1000)
+
     })
 }
 

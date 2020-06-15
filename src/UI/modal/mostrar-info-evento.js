@@ -1,5 +1,6 @@
-import { obtenerEventos } from "../../service/manejador-eventos.js"
+import { obtenerEventos, obtenerUsuarioEspecifico } from "../../service/manejador-eventos.js"
 import { crearBotonCerrar, botonModificarEvento, botonEliminarEvento } from "../botones-interfaz.js"
+import {agregarCeros} from '../../utilidades/utilidades.js';
 
 export function verificarSiContieneData(e, callbackFunction) {
     debugger
@@ -65,37 +66,66 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
         contenedorDescripcion.appendChild(labelDescripcion)
 
         let dateComienza = new Date(evento.start)
+        const diaComienza = agregarCeros(dateComienza.getDate(), 2)
+        const mesComienza = agregarCeros(dateComienza.getMonth() + 1, 2)
+        const añoComienza = (dateComienza.getFullYear())
+        const horaComienza = agregarCeros(dateComienza.getHours(), 2)
+        const minutosComienza = agregarCeros(dateComienza.getMinutes(), 2)
+
         const contenedorComienza = document.createElement("div")
         const labelComienza = document.createElement("label")
-        labelComienza.textContent = `Comienza: ${dateComienza.getDate()}/${dateComienza.getMonth() + 1}/${dateComienza.getFullYear()} ${dateComienza.getHours()}:${dateComienza.getMinutes()}`
+        labelComienza.textContent = `Comienza: ${diaComienza}/${mesComienza}/${añoComienza} ${horaComienza}:${minutosComienza}`
         contenedorComienza.appendChild(labelComienza)
 
         let dateTermina = new Date(evento.end)
-        const contenedorTermina = document.createElement("div")
-        const labelTermina = document.createElement("label")
-        labelTermina.textContent = `Termina: ${dateTermina.getDate()}/${dateTermina.getMonth() + 1}/${dateTermina.getFullYear()} ${dateTermina.getHours()}:${('0' + dateTermina.getMinutes()).slice(-2)}`
-        contenedorTermina.appendChild(labelTermina)
 
-        if (!evento.attendees == null) {
-            const contenedorParaticipantes = document.createElement("div")
+        const diaTermina = agregarCeros(dateTermina.getDate(), 2)
+        const mesTermina = agregarCeros(dateTermina.getMonth() + 1, 2)
+        const añoTermina = (dateTermina.getFullYear())
+        const horaTermina = agregarCeros(dateTermina.getHours(), 2)
+        const minutosTermina = agregarCeros(dateTermina.getMinutes(), 2)
+
+        const contenedorTermina = document.createElement("div")
+
+        const labelTermina = document.createElement("label")
+        labelTermina.textContent = `Termina: ${diaTermina}/${mesTermina}/${añoTermina} ${horaTermina}:${minutosTermina}`
+        contenedorTermina.appendChild(labelTermina)
+        debugger
+
+        const contenedorParaticipantes = document.createElement("div")
+        if (evento.attendees) {
             const ul = document.createElement("ul")
             ul.classList = "list-group-flush"
-            evento.attendees.forEach((participante) => {
-                const liParticipante = document.createElement("li")
-                const respuestaParticipante = document.createElement("i")
-                respuestaParticipante.classList = obtenerImagenParticipante(participante.responseStatus)
-                liParticipante.classList = "list-group-item"
-                liParticipante.innerText = participante.displayName
-                ul.appendChild(liParticipante)
-                liParticipante.appendChild(respuestaParticipante)
-            })
+            console.log(evento.attendees)
+            test(evento.attendees)
+            async function test(xd) {
+                let usuarios = await Promise.all(
+                    xd.map(async usuario => {
+                        let r = await obtenerUsuarioEspecifico(usuario.id)
+                        console.log(r)
+                        const liParticipante = document.createElement("li")
+                        const respuestaParticipante = document.createElement("i")
+                        respuestaParticipante.classList = obtenerImagenParticipante(xd.responseStatus)
+                        liParticipante.classList = "list-group-item"
+                        liParticipante.innerText = r.nombre
+                        ul.appendChild(liParticipante)
+                        liParticipante.appendChild(respuestaParticipante)
+                    })
+                )
+                console.log(usuarios)
+
+
+
+
+            }
             contenedorParaticipantes.appendChild(ul)
-            body.appendChild(contenedorParaticipantes)
+
         }
         body.appendChild(contenedorDescripcion)
         body.appendChild(contenedorComienza)
         body.appendChild(contenedorTermina)
         body.appendChild(contenedorTitulo)
+        body.appendChild(contenedorParaticipantes)
     }
     function modalDatosFooter(evento, footer) {
 

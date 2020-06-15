@@ -1,4 +1,7 @@
 import { botonModificarSiguiente } from "../botones-interfaz.js"
+import { mostrarUsuarios, obtenerParticipantes } from './utilidad-ui.js';
+import {agregarCeros} from '../../utilidades/utilidades.js';
+
 
 export function modalModificarEvento(evento) {
     const header = document.querySelector(".modal-title")
@@ -37,15 +40,21 @@ export function modalModificarEvento(evento) {
         contenedorDescripcion.appendChild(inputDescripcion)
 
         const dateComienza = new Date(`${evento.start}`)
+        const diaComienza = agregarCeros(dateComienza.getDate(), 2)
+        const mesComienza = agregarCeros(dateComienza.getMonth() + 1, 2)
+        const añoComienza = (dateComienza.getFullYear())
+        const horaComienza = agregarCeros(dateComienza.getHours(), 2)
+        const minutosComienza = agregarCeros(dateComienza.getMinutes(), 2)
+
         const contenedorComienza = document.createElement("div")
         const labelComienzaFecha = document.createElement("label")
         const labelComienzaHora = document.createElement("label")
         labelComienzaFecha.textContent = "Comienza:"
         labelComienzaHora.textContent = "a las:"
         const inputComienzaFecha = document.createElement("input")
-        inputComienzaFecha.value = `${dateComienza.getDate()}/${dateComienza.getMonth() + 1}/${dateComienza.getFullYear()}`
+        inputComienzaFecha.value = `${diaComienza}/${mesComienza}/${añoComienza}`
         const inputComienzaHora = document.createElement("input")
-        inputComienzaHora.value = `${dateComienza.getHours()}:${dateComienza.getMinutes()}`
+        inputComienzaHora.value = `${horaComienza}:${minutosComienza}`
         inputComienzaHora.id = "crear-evento-comienza-hora"
         inputComienzaFecha.id = "crear-evento-comienza-fecha"
         inputComienzaHora.setAttribute("placeholder", "HH:MM")
@@ -57,6 +66,13 @@ export function modalModificarEvento(evento) {
 
 
         const dateTermina = new Date(`${evento.end}`)
+        const diaTermina = agregarCeros(dateTermina.getDate(), 2)
+        debugger
+        const mesTermina = agregarCeros(dateTermina.getMonth() + 1, 2)
+        const añoTermina = (dateTermina.getFullYear())
+        const horaTermina = agregarCeros(dateTermina.getHours(), 2)
+        const minutosTermina = agregarCeros(dateTermina.getMinutes(), 2)
+
         const contenedorTermina = document.createElement("div")
         const labelTerminaFecha = document.createElement("label")
         labelTerminaFecha.textContent = "Termina:"
@@ -66,8 +82,8 @@ export function modalModificarEvento(evento) {
         inputTerminaFecha.id = "crear-evento-termina-fecha"
         const inputTerminaHora = document.createElement("input")
         inputTerminaHora.id = "crear-evento-termina-hora"
-        inputTerminaFecha.value = `${dateTermina.getDate()}/${dateTermina.getMonth() + 1}/${dateTermina.getFullYear()}`
-        inputTerminaHora.value = `${dateTermina.getHours()}:${('0' + dateTermina.getMinutes()).slice(-2)}`
+        inputTerminaFecha.value = `${diaTermina}/${mesTermina}/${añoTermina}`
+        inputTerminaHora.value = `${horaTermina}:${minutosTermina}`
         inputTerminaFecha.setAttribute("placeholder", " ej: 20/5/2020")
         inputTerminaHora.setAttribute("placeholder", "HH:MM")
         contenedorTermina.appendChild(labelTerminaFecha)
@@ -92,7 +108,23 @@ export function modalModificarEvento(evento) {
         body.appendChild(contenedorComienza)
         body.appendChild(contenedorTermina)
         body.appendChild(contenedorColor)
+
+        mostrarUsuarios(body)
+
     }
+
+    // No lo implemente porque cuando quiere mostrar usuario fetchea y los quiere marcar antes de mostrarlos
+
+    // marcarUsuariosInvitados(evento.attendees)
+    // function marcarUsuariosInvitados(attendees) {
+    //     debugger
+    //     console.log(attendees)
+    //     if (attendees) {
+    //         attendees.map(invitado => document.querySelector(`.usuario input[data-usuario='${invitado.id}']`).checked = true)
+
+    //     }
+
+    // }
 
 
     modalModificarFooter(evento)
@@ -119,6 +151,7 @@ export function obtenerDatosModificarEvento() {
     const terminaHora = document.querySelector("#crear-evento-termina-hora").value
     const comienza = rearmarFecha(comienzaFecha, comienzaHora)
     const termina = rearmarFecha(terminaFecha, terminaHora)
+    const participantes = obtenerParticipantes()
 
     function rearmarFecha(comienzaFecha, comienzaHora) {
         let fechaRearmada = `${comienzaFecha.split("/")[1]}/${comienzaFecha.split("/")[0]}/${comienzaFecha.split("/")[2]}`
@@ -134,7 +167,7 @@ export function obtenerDatosModificarEvento() {
         color: colorEvento,
         start: comienza,
         end: termina,
-
+        attendees: participantes
     }
     return eventoModificado
 }

@@ -26,6 +26,10 @@ tr td{
     margin: 0 !important;
     
 }
+td{
+    height: 25px;
+    width: 169px;
+}
 
 .container{
     padding-left: 0px !important;
@@ -38,7 +42,8 @@ i{
 }
 
 .dividido{
-    display:flex
+    display:flex;
+    height: 100%;
 }
 
 .cuadro-evento{

@@ -10,14 +10,17 @@ export async function obtenerUsuarios() {
     return rJSON
 }
 
-
-
 export async function obtenerEventoEspecifico(id) {
     const r = await fetch(`http://localhost:3000/eventos/${id}`)
     const rJSON = await r.json()
     return rJSON
 }
 
+export async function obtenerUsuarioEspecifico(id) {
+    const r = await fetch(`http://localhost:3000/usuarios/${id}`)
+    const rJSON = await r.json()
+    return rJSON
+}
 
 export function fetchModificarEvento(id, objeto) {
     fetch(`http://localhost:3000/eventos/${id}`, {
