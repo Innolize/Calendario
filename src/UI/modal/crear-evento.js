@@ -173,7 +173,6 @@ export function obtenerDatosCrearEvento() {
         attendees: participantes
 
     }
-    debugger
     console.log(participantes)
 
     return evento

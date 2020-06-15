@@ -30,7 +30,12 @@ export function calcularDiferenciaHoras(primeraFecha, segundaFecha) {
 }
 
 export function eliminarContenidoTabla() {
-    document.querySelectorAll("[data-id").forEach((elemento) => { elemento.remove() })
+    document.querySelectorAll("[data-id").forEach((elemento) => {
+        if (elemento.parentElement.querySelectorAll("div") < 2) {
+            elemento.parentElement.classList.remove("dividido")
+        }
+        elemento.remove()
+    })
 }
 
 export function obtenerIdEvento() {

@@ -57,11 +57,13 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
     function modalDatosBody(evento) {
         const contenedorTitulo = document.createElement("div")
         const labelTitulo = document.createElement("label")
+        labelTitulo.id = "mostrar-titulo"
         labelTitulo.textContent = `Nombre del evento: ${evento.summary}`
         contenedorTitulo.appendChild(labelTitulo)
 
         const contenedorDescripcion = document.createElement("div")
         const labelDescripcion = document.createElement("label")
+        labelDescripcion.id = "mostrar-descripcion"
         labelDescripcion.textContent = `Descripcion: ${evento.description}`
         contenedorDescripcion.appendChild(labelDescripcion)
 
@@ -74,11 +76,11 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
 
         const contenedorComienza = document.createElement("div")
         const labelComienza = document.createElement("label")
+        labelComienza.id = "mostrar-comienza"        
         labelComienza.textContent = `Comienza: ${diaComienza}/${mesComienza}/${añoComienza} ${horaComienza}:${minutosComienza}`
         contenedorComienza.appendChild(labelComienza)
 
         let dateTermina = new Date(evento.end)
-
         const diaTermina = agregarCeros(dateTermina.getDate(), 2)
         const mesTermina = agregarCeros(dateTermina.getMonth() + 1, 2)
         const añoTermina = (dateTermina.getFullYear())
@@ -86,11 +88,10 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
         const minutosTermina = agregarCeros(dateTermina.getMinutes(), 2)
 
         const contenedorTermina = document.createElement("div")
-
         const labelTermina = document.createElement("label")
+        labelTermina.id = "mostrar-termina"
         labelTermina.textContent = `Termina: ${diaTermina}/${mesTermina}/${añoTermina} ${horaTermina}:${minutosTermina}`
         contenedorTermina.appendChild(labelTermina)
-        debugger
 
         const contenedorParaticipantes = document.createElement("div")
         if (evento.attendees) {
@@ -108,6 +109,7 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
                         respuestaParticipante.classList = obtenerImagenParticipante(xd.responseStatus)
                         liParticipante.classList = "list-group-item"
                         liParticipante.innerText = r.nombre
+                        liParticipante.dataset.idUsuario = usuario.id
                         ul.appendChild(liParticipante)
                         liParticipante.appendChild(respuestaParticipante)
                     })

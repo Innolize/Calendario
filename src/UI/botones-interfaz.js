@@ -38,7 +38,6 @@ export function creaBotonFDS() {
 
         function ocultarMostrarFDS(elemento) {
             elemento.forEach((dia) => {
-                debugger
                 if (dia.classList.contains("invisible") === true) {
                     dia.classList.remove("invisible")
                     dia.classList.add("visible")
@@ -107,7 +106,7 @@ export function botonEliminarEvento(evento, padre) {
         setTimeout(function () {
             eliminarContenidoTabla(),
                 reinicioCalendario()
-        },1000)
+        }, 1000)
     })
 }
 
@@ -124,7 +123,7 @@ export function crearBotonCerrar(padre) {
 }
 
 export function botonModificarSiguiente(idEvento, padre) {
-    debugger
+
     const botonSiguiente = document.createElement("button")
     botonSiguiente.textContent = "Siguiente"
     botonSiguiente.id = "modificar-siguiente"
@@ -135,10 +134,12 @@ export function botonModificarSiguiente(idEvento, padre) {
         let datosModificados = obtenerDatosModificarEvento()
         let idEvento = obtenerIdModificarSiguiente()
         fetchModificarEvento(idEvento, datosModificados)
+        $("#modal").modal("hide")
         setTimeout(function () {
+
             eliminarContenidoTabla(),
                 reinicioCalendario()
-        },1000)
+        }, 1000)
 
     })
 }

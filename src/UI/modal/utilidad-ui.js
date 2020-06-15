@@ -23,7 +23,6 @@ export async function mostrarUsuarios(elementoPadre) {
 }
 
 export function obtenerParticipantes() {
-    debugger
     const inputParticipantesArray = document.querySelectorAll('.usuario input')
     const array = Array.from(inputParticipantesArray)
     let arrayFiltrado = array.filter(input => input.checked === true)
