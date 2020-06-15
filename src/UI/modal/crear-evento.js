@@ -9,8 +9,6 @@ export function muestraModalCrearEvento(callbackFunction) {
     modalCrearFooter(callbackFunction)
     $("#modal").modal("show")
 
-
-
     function modalCrearHeader() {
         const header = document.querySelector(".modal-title")
         header.textContent = `Crear evento`
@@ -78,12 +76,6 @@ export function muestraModalCrearEvento(callbackFunction) {
         contenedorColor.appendChild(labelColor)
         contenedorColor.appendChild(inputColor)
 
-
-
-
-
-
-
         body.appendChild(contenedorTitulo)
         body.appendChild(contenedorDescripcion)
         body.appendChild(contenedorComienza)
@@ -92,7 +84,6 @@ export function muestraModalCrearEvento(callbackFunction) {
 
         mostrarUsuarios(body)
     }
-
 
     function modalCrearFooter(callbackFunction) {
         const footer = document.querySelector(".modal-footer")
@@ -119,9 +110,6 @@ export function muestraModalCrearEvento(callbackFunction) {
     }
 }
 
-
-
-
 export function creaEvento() {
     const evento = obtenerDatosCrearEvento()
     fetchCrearEvento(evento)
@@ -134,9 +122,6 @@ export function creaEvento() {
         mostrarRespuestaAPISemanal(eventos)
     }
 }
-
-
-
 
 export function obtenerDatosCrearEvento() {
     const nombreDelEvento = document.querySelector("#crear-evento-titulo").value
@@ -173,7 +158,6 @@ export function obtenerDatosCrearEvento() {
         attendees: participantes
 
     }
-    console.log(participantes)
 
     return evento
 }

@@ -50,7 +50,6 @@ export function creaBotonFDS() {
                     dia.classList.add("invisible")
                 }
 
-
             })
         }
     })

@@ -3,7 +3,6 @@ import { crearBotonCerrar, botonModificarEvento, botonEliminarEvento } from "../
 import {agregarCeros} from '../../utilidades/utilidades.js';
 
 export function verificarSiContieneData(e, callbackFunction) {
-    debugger
     if ((e.target).hasAttribute("data-id") == true) {
         return callbackFunction(e.target.dataset.id)
     } else {
@@ -43,7 +42,6 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
     modalDatosFooter(evento, footer)
 
     function borrarContenidoModal(header, body, footer) {
-        debugger
         header.innerHTML = ""
         body.innerHTML = ""
         footer.innerHTML = ""
@@ -97,16 +95,15 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
         if (evento.attendees) {
             const ul = document.createElement("ul")
             ul.classList = "list-group-flush"
-            console.log(evento.attendees)
-            test(evento.attendees)
-            async function test(xd) {
+            conseguirUsuarios(evento.attendees)
+
+            async function conseguirUsuarios(data) {
                 let usuarios = await Promise.all(
-                    xd.map(async usuario => {
+                    data.map(async usuario => {
                         let r = await obtenerUsuarioEspecifico(usuario.id)
-                        console.log(r)
                         const liParticipante = document.createElement("li")
                         const respuestaParticipante = document.createElement("i")
-                        respuestaParticipante.classList = obtenerImagenParticipante(xd.responseStatus)
+                        respuestaParticipante.classList = obtenerImagenParticipante(r.responseStatus)
                         liParticipante.classList = "list-group-item"
                         liParticipante.innerText = r.nombre
                         liParticipante.dataset.idUsuario = usuario.id
@@ -114,10 +111,6 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
                         liParticipante.appendChild(respuestaParticipante)
                     })
                 )
-                console.log(usuarios)
-
-
-
 
             }
             contenedorParaticipantes.appendChild(ul)
@@ -133,15 +126,10 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
 
         botonEliminarEvento(evento, footer)
         botonModificarEvento(evento, footer)
-
         crearBotonCerrar(footer)
-
-
         $("#modal").modal("show")
 
     }
-
-
 }
 
 function obtenerImagenParticipante(respuestaUsuario) {

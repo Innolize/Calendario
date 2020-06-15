@@ -18,8 +18,6 @@ export function modalModificarEvento(evento) {
         header.textContent = `${evento.summary}`
     }
 
-
-
     function modalModificarBody() {
         const contenedorTitulo = document.createElement("div")
         const labelTitulo = document.createElement("label")
@@ -64,10 +62,8 @@ export function modalModificarEvento(evento) {
         contenedorComienza.appendChild(labelComienzaHora)
         contenedorComienza.appendChild(inputComienzaHora)
 
-
         const dateTermina = new Date(`${evento.end}`)
         const diaTermina = agregarCeros(dateTermina.getDate(), 2)
-        debugger
         const mesTermina = agregarCeros(dateTermina.getMonth() + 1, 2)
         const añoTermina = (dateTermina.getFullYear())
         const horaTermina = agregarCeros(dateTermina.getHours(), 2)
@@ -101,8 +97,6 @@ export function modalModificarEvento(evento) {
         contenedorColor.appendChild(labelColor)
         contenedorColor.appendChild(inputColor)
 
-
-
         body.appendChild(contenedorTitulo)
         body.appendChild(contenedorDescripcion)
         body.appendChild(contenedorComienza)
@@ -113,20 +107,6 @@ export function modalModificarEvento(evento) {
 
     }
 
-    // No lo implemente porque cuando quiere mostrar usuario fetchea y los quiere marcar antes de mostrarlos
-
-    // marcarUsuariosInvitados(evento.attendees)
-    // function marcarUsuariosInvitados(attendees) {
-    //     debugger
-    //     console.log(attendees)
-    //     if (attendees) {
-    //         attendees.map(invitado => document.querySelector(`.usuario input[data-usuario='${invitado.id}']`).checked = true)
-
-    //     }
-
-    // }
-
-
     modalModificarFooter(evento)
     function modalModificarFooter(evento) {
         const contenedorFooter = document.createElement("div")
@@ -136,7 +116,6 @@ export function modalModificarEvento(evento) {
         footer.appendChild(contenedorFooter)
         botonModificarSiguiente(evento.id, contenedorFooter)
     }
-
 
 }
 
@@ -158,7 +137,6 @@ export function obtenerDatosModificarEvento() {
         let fecha = new Date(`${fechaRearmada} ${comienzaHora}`)
         return fecha
     }
-    debugger
 
     let eventoModificado = {
         updated: new Date(),
