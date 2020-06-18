@@ -1,6 +1,6 @@
-import { obtenerEventos, obtenerUsuarioEspecifico } from "../../service/manejador-eventos.js"
+import { obtenerEventos, obtenerUsuarioEspecifico, fetchModificarEvento } from "../../service/manejador-eventos.js"
 import { crearBotonCerrar, botonModificarEvento, botonEliminarEvento } from "../botones-interfaz.js"
-import {agregarCeros} from '../../utilidades/utilidades.js';
+import { agregarCeros, convertirStringABoolean } from '../../utilidades/utilidades.js';
 
 export function verificarSiContieneData(e, callbackFunction) {
     if ((e.target).hasAttribute("data-id") == true) {
@@ -28,6 +28,8 @@ async function buscarEvento(id) {
     })
     return eventoCorrecto
 }
+
+const usuarioCalendarioID = "1"
 
 function modalDatosDeEvento(evento, botonUno, botonDos) {
 
@@ -74,7 +76,7 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
 
         const contenedorComienza = document.createElement("div")
         const labelComienza = document.createElement("label")
-        labelComienza.id = "mostrar-comienza"        
+        labelComienza.id = "mostrar-comienza"
         labelComienza.textContent = `Comienza: ${diaComienza}/${mesComienza}/${añoComienza} ${horaComienza}:${minutosComienza}`
         contenedorComienza.appendChild(labelComienza)
 
@@ -100,21 +102,78 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
             async function conseguirUsuarios(data) {
                 let usuarios = await Promise.all(
                     data.map(async usuario => {
+                        console.log(usuario)
                         let r = await obtenerUsuarioEspecifico(usuario.id)
                         const liParticipante = document.createElement("li")
-                        const respuestaParticipante = document.createElement("i")
-                        respuestaParticipante.classList = obtenerImagenParticipante(r.responseStatus)
                         liParticipante.classList = "list-group-item"
                         liParticipante.innerText = r.nombre
                         liParticipante.dataset.idUsuario = usuario.id
                         ul.appendChild(liParticipante)
-                        liParticipante.appendChild(respuestaParticipante)
+                        if (evento.creator.id !== usuarioCalendarioID && usuario.id == usuarioCalendarioID) {
+                            const contenedor = document.createElement("div")
+
+                            const radioSi = document.createElement("input")
+                            radioSi.type = "radio"
+                            radioSi.value = true
+                            radioSi.id = "radioSi"
+                            radioSi.style.paddingRight = "5px"
+                            radioSi.name = "asistencia"
+
+                            const labelSi = document.createElement("label")
+                            labelSi.innerText = "si"
+
+                            const radioNo = document.createElement("input")
+                            radioNo.type = "radio"
+                            radioNo.value = false
+                            radioNo.id = "radioNo"
+                            radioNo.style.paddingRight = "5px"
+                            radioNo.name = "asistencia"
+
+                            const labelNo = document.createElement("label")
+                            labelNo.innerText = "no"
+
+                            const buttonEnviar = document.createElement("button")
+                            buttonEnviar.addEventListener("click", () => {
+                                debugger
+                                const valorRespuesta = document.querySelector("input[type=radio]:checked")
+                                if (valorRespuesta === null) {
+                                    return
+                                } else {
+                                    let respuestaBooleano = convertirStringABoolean(valorRespuesta.value)
+                                    let respuesta = { attendees: [...evento.attendees.filter(x => x.id !== usuarioCalendarioID), { id: "1", organizer: false, responseStatus: respuestaBooleano }] }
+                                    debugger
+                                    fetchModificarEvento(evento.id, respuesta)
+                                }
+                                debugger
+
+
+                            })
+
+                            buttonEnviar.innerText = "enviar"
+                            liParticipante.appendChild(contenedor)
+                            contenedor.append(labelSi)
+                            contenedor.append(radioSi)
+                            contenedor.append(labelNo)
+                            contenedor.append(radioNo)
+                            contenedor.append(buttonEnviar)
+                        }
+                        else {
+                            const respuestaParticipante = document.createElement("i")
+                            respuestaParticipante.classList = obtenerImagenParticipante(usuario.responseStatus)
+                            liParticipante.appendChild(respuestaParticipante)
+                        }
                     })
                 )
 
             }
             contenedorParaticipantes.appendChild(ul)
-
+            test()
+            function test() {
+                const usuarioInvitadoExiste = document.querySelector(`[data-id-usuario='${usuarioCalendarioID}']`)
+                if (evento.creator.id !== usuarioCalendarioID && usuarioInvitadoExiste) {
+                    console.log("test")
+                }
+            }
         }
         body.appendChild(contenedorDescripcion)
         body.appendChild(contenedorComienza)
@@ -122,6 +181,10 @@ function modalDatosDeEvento(evento, botonUno, botonDos) {
         body.appendChild(contenedorTitulo)
         body.appendChild(contenedorParaticipantes)
     }
+
+    debugger
+
+
     function modalDatosFooter(evento, footer) {
 
         botonEliminarEvento(evento, footer)

@@ -47,3 +47,15 @@ export function obtenerIdModificarSiguiente() {
     let id = document.querySelector("#modificar-siguiente").getAttribute("data-id-evento")
     return id
 }
+
+export function convertirStringABoolean(string) {
+    if (string === "true") {
+        return true
+    }
+    if (string === "false") {
+        return false
+    }
+    else {
+        return null
+    }
+}

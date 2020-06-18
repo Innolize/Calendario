@@ -2,6 +2,11 @@
   "eventos": [],
   "usuarios": [
     {
+      "id": 1,
+      "nombre": "Usuario Calendario",
+      "email": "UsuarioCalendario@hotmail.com"
+    },
+    {
       "id": 11,
       "nombre": "Webster Rogers",
       "email": "test11@hotmail.com"

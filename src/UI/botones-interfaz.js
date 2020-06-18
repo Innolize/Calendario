@@ -71,18 +71,19 @@ export function botonModificarEvento(evento, padre) {
     button.textContent = "Modificar"
     button.classList = `btn btn-info`
     button.id = "boton-modificar"
-    if (evento.creator.id == 1) {
+    debugger
+    if (evento.creator.id === 1) {
         button.dataset.eventoId = evento.id
+        button.addEventListener("click", async () => {
+            let id = obtenerIdEvento()
+            let evento = await obtenerEventoEspecifico(id)
+            modalModificarEvento(evento)
+        })
     } else {
         button.classList.add("disabled")
+        button.addEventListener("click", () => { })
     }
     padre.appendChild(button)
-
-    $("#boton-modificar").click(async () => {
-        let id = obtenerIdEvento()
-        let evento = await obtenerEventoEspecifico(id)
-        modalModificarEvento(evento)
-    })
 
 }
 
@@ -94,19 +95,21 @@ export function botonEliminarEvento(evento, padre) {
     button.id = "boton-eliminar"
     if (evento.creator.id == 1) {
         button.dataset.eventoId = evento.id
+        button.addEventListener("click", async (e) => {
+            let id = e.target.getAttribute("data-evento-id")
+            fetchEliminarEvento(id)
+            setTimeout(function () {
+                eliminarContenidoTabla(),
+                    reinicioCalendario()
+            }, 1000)
+        })
     } else {
         button.classList.add("disabled")
+        button.addEventListener("click", () => { })
     }
 
     padre.appendChild(button)
-    $("#boton-eliminar").click((e) => {
-        let id = e.target.getAttribute("data-evento-id")
-        fetchEliminarEvento(id)
-        setTimeout(function () {
-            eliminarContenidoTabla(),
-                reinicioCalendario()
-        }, 1000)
-    })
+
 }
 
 export function crearBotonCerrar(padre) {
@@ -142,5 +145,3 @@ export function botonModificarSiguiente(idEvento, padre) {
 
     })
 }
-
-
